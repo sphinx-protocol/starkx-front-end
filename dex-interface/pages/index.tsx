@@ -9,7 +9,7 @@ import { WagmiConfig, createClient } from 'wagmi'
 import { getDefaultProvider } from 'ethers'
 
 const client = createClient({
-  autoConnect: true,
+  autoConnect: false,
   provider: getDefaultProvider(),
 })
 
