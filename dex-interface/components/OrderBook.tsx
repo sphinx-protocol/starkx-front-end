@@ -158,10 +158,11 @@ function OrderBook({
           </div>
         </div>
       </div>
-      <div className="flex justify-center w-full m-1">
+      <div className="flex justify-center items-center w-full m-1">
+        Current Price: 
         {
             sortedBuyBuckets.length
-              ? "$" + Number(sortedBuyBuckets[0].price)
+              ? " $" + Number(sortedBuyBuckets[0].price).toFixed(2)
               : "-"
           }   
       </div>
