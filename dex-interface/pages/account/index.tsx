@@ -8,11 +8,11 @@ const renderToken = (name, amount) => {
     }
 
     return(<div className="flex flex-row w-full justify-between border border-black">
-        <div className="flex flex-row">
-            <div>Logo</div>
-            <div>ETHEREUM</div>
+        <div className="flex flex-row items-center">
+            <img src={`/${name}.svg`} className="w-8"></img>
+            <div className="ml-2">{name}</div>
         </div>
-        <div className="flex flex-row">10 ETH</div>
+        <div className="flex flex-row">10 {name === "ETHEREUM"? "ETH" : name}</div>
     </div>)
 }
 
