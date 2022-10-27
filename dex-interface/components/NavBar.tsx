@@ -1,18 +1,21 @@
 import Link from "next/link";
+import { useRouter } from 'next/router'
 
 import Profile from "./Profile";
 
 export default function NavBar() {
+    const router = useRouter()
+
     return (
         <div className="flex flex-row w-full justify-between items-center border border-black h-20">
             <div className="text-white">Logo</div>
             <div className="flex justify-between items-center">
-                <div className="ml-5 text-white">
+                <div className={router.pathname === "/markets" ? "ml-5 text-themeOrange font-bold" : "ml-5 text-white"}>
                     <Link href="/markets">
                         Markets
                     </Link>
                 </div>
-                <div className="ml-5  text-white">
+                <div className={router.pathname === "/account" ? "ml-5 text-themeOrange font-bold" : "ml-5 text-white"}>
                     <Link href="/account" className="ml-3">
                         Account
                     </Link>
