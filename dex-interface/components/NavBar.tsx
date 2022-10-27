@@ -7,7 +7,7 @@ export default function NavBar() {
     const router = useRouter()
 
     return (
-        <div className="flex flex-row w-full justify-between items-center border border-black h-20">
+        <div className="px-20 flex flex-row w-full justify-between items-center border border-black h-20">
             <div className="text-white">Logo</div>
             <div className="flex justify-between items-center">
                 <div className={router.pathname === "/markets" ? "ml-5 text-themeOrange font-bold" : "ml-5 text-white"}>
@@ -23,7 +23,7 @@ export default function NavBar() {
                 <div className="ml-5  text-white">
                     <a href="https://stark-x.gitbook.io/docs/" target="_blank">GitBook</a>
                 </div>
-                <div className="flex flex-row ml-10">
+                <div className="flex flex-row ml-20">
                     <img src={"/twitter.svg"} alt="Twitter Logo" className="w-6 ml-3 cursor-pointer"></img>
                     <img src={"/discord.svg"} alt="Discord Logo" className="w-6 ml-3 cursor-pointer"></img>
                     <img src={"/telegram.svg"} alt="Telegram Logo" className="w-6 ml-3 cursor-pointer"></img>
@@ -31,7 +31,9 @@ export default function NavBar() {
                     <img src={"/github.svg"} alt="Github Logo" className="w-6 ml-3 cursor-pointer"></img>
                 </div>
             </div>
-            <Profile />
+            <div className="flex flex-row justify-end w-80">
+                <Profile />
+            </div>
         </div>
     );
 }

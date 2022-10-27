@@ -10,12 +10,12 @@ function Profile() {
 
   if (isConnected)
     return (
-      <div>
-        Connected to {address}
-        <button onClick={() => disconnect()} className="border border-black bg-themeOrange">Disconnect</button>
+      <div className="text-white">
+        Connected to {address?.slice(0,4) + "..." + address?.slice(-4)}
+        <button onClick={() => disconnect()} className="ml-2 text-black p-2 border border-black bg-themeOrange">Disconnect</button>
       </div>
     )
-  return <button onClick={() => connect()} className="border border-black bg-themeOrange">Connect Wallet</button>
+  return <button onClick={() => connect()} className="p-2 border border-black bg-themeOrange">Connect Wallet</button>
 }
 
 
