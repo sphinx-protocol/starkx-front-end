@@ -23,7 +23,13 @@ const Account: NextPage = () => {
   return (
     <div className="flex flex-row w-full">
         <div className="w-full flex-col border border-black">
-            <div>Select Chain:</div>
+        <select className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
+                <option selected disabled hidden>Select Chain</option>
+                <option>Ethereum</option>
+                <option>Polygon</option>
+                <option>Arbitrum</option>
+                <option>Optimism</option>
+        </select>
             {renderToken("ETHEREUM", 10)}
             {renderToken("USDC", 10)}
             {renderToken("DAI", 10)}
@@ -31,9 +37,9 @@ const Account: NextPage = () => {
             <div className="relative w-full lg:max-w-sm">
             <select className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
                 <option selected disabled hidden>Select Token</option>
-                <option>Laravel 9 with React</option>
-                <option>React with Tailwind CSS</option>
-                <option>React With Headless UI</option>
+                <option>Ethereum</option>
+                <option>DAI</option>
+                <option>USDC</option>
             </select>
             <div>Enter Amount</div>
             <input
@@ -57,15 +63,16 @@ const Account: NextPage = () => {
             <div className="relative w-full lg:max-w-sm">
             <select className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
                 <option selected disabled hidden>Select Chain</option>
-                <option>Laravel 9 with React</option>
-                <option>React with Tailwind CSS</option>
-                <option>React With Headless UI</option>
+                <option>Ethereum</option>
+                <option>Polygon</option>
+                <option>Arbitrum</option>
+                <option>Optimism</option>
             </select>
             <select className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
                 <option selected disabled hidden>Select Token</option>
-                <option>Laravel 9 with React</option>
-                <option>React with Tailwind CSS</option>
-                <option>React With Headless UI</option>
+                <option>Ethereum</option>
+                <option>DAI</option>
+                <option>USDC</option>
             </select>
             <div>Enter Amount</div>
             <input

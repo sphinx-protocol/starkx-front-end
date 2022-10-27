@@ -20,11 +20,11 @@ export default function NavBar() {
                 </div>
                 <div className="ml-3">GitBook</div>
                 <div className="flex flex-row mx-3">
-                    <div>Twitter</div>
-                    <div>Discord</div>
-                    <div>Telegram</div>
-                    <div>Medium</div>
-                    <div>Github</div>
+                    <img src={"/twitter.svg"} alt="Twitter Logo"></img>
+                    <img src={"/discord.svg"} alt="Discord Logo"></img>
+                    <img src={"/telegram.svg"} alt="Telegram Logo"></img>
+                    <img src={"/medium.svg"} alt="Medium Logo"></img>
+                    <img src={"/github.svg"} alt="Github Logo"></img>
                 </div>
             </div>
             <Profile />
