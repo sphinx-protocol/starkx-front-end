@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import Profile from "./Profile";
 
 
@@ -6,9 +8,11 @@ export default function NavBar() {
         <div className="flex flex-row w-full justify-between border border-black">
             <div>Logo</div>
             <div className="flex justify-between">
-                <div className="mx-3">Markets</div>
-                <div className="mx-3">Account</div>
-                <div className="mx-3">GitBook</div>
+                <Link href="/markets" className="ml-3">
+                    Markets
+                </Link>
+                <div className="ml-3">Account</div>
+                <div className="ml-3">GitBook</div>
                 <div className="flex flex-row mx-3">
                     <div>Twitter</div>
                     <div>Discord</div>
