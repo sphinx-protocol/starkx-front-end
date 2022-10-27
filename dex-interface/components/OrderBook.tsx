@@ -108,7 +108,7 @@ function OrderBook({
 
   const sortedSellBuckets: SellBucketDetails[] = Object.values(
     sellBuckets
-  ).sort((a, b) => b.price - a.price);
+  ).sort((a, b) => a.price - b.price);
   console.log(sortedSellBuckets);
 
   return (
