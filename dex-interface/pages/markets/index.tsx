@@ -17,12 +17,11 @@ const Markets: NextPage = () => {
     <div className="flex flex-col max-w-7xl border border-black  w-full">
       <div className="flex flex-row w-full mt-5 border border-black">
         <div className="flex flex-col w-3/12 h-full border border-black">
-          <OrderBook />
+          {/* <OrderBook /> */}
         </div>
         <div className="flex flex-col w-9/12 h-full ml-5 border border-black">
-          <div className="border border-black h-96">
-            {/* <PlotChart /> */}
-            Chart
+          <div className="border border-black w-full">
+          <OrderBook />
           </div>
           <div className="flex flex-row border border-black">
             <Action />

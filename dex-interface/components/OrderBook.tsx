@@ -112,17 +112,17 @@ function OrderBook({
   console.log(sortedSellBuckets);
 
   return (
-    <div className="flex flex-col w-full max-w-xs p-5 bg-white border shadow-md border-b-400 min-w-min">
+    <div className="flex flex-row w-full p-5 bg-white border shadow-md border-b-400 min-w-min">
       {/* <div className="flex justify-between">
         <div>Filter</div>
         <div>1</div>
       </div> */}
-      <div className="flex justify-between mb-1 text-xs">
+      <div className="flex flex-col items-end w-full">
+      <div className="flex justify-between mb-1 text-xs w-full">
         <p className="w-1/3 text-center">Price</p>
         <p className="w-1/3 text-center">Quantity</p>
         <p className="w-1/3 text-center">Total</p>
       </div>
-      <div className="flex flex-col items-end">
         <div className="flex flex-col w-full">
           <div className="overflow-y-scroll h-60" id="sellOrderBook">
             {sortedSellBuckets &&
@@ -165,7 +165,12 @@ function OrderBook({
               : "-"
           }   
       </div>
-      <div className="flex flex-col items-end">
+      <div className="flex flex-col items-end w-full">
+    <div className="flex justify-between mb-1 text-xs w-full">
+        <p className="w-1/3 text-center">Price</p>
+        <p className="w-1/3 text-center">Quantity</p>
+        <p className="w-1/3 text-center">Total</p>
+      </div>
         <div className="flex flex-col w-full">
           <div className="overflow-y-scroll h-60">
             {sortedBuyBuckets &&
