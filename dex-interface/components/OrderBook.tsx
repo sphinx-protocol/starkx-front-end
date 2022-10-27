@@ -26,22 +26,17 @@ interface SellBucketDetails {
 }
 
 interface Props {
-  sellOrderBook: SellOrderBook[];
-  buyOrderBook: BuyOrderBook[];
-  addToCart: Function;
-  ethPrice: number;
+//   sellOrderBook: SellOrderBook[];
+//   buyOrderBook: BuyOrderBook[];
 }
 
 function OrderBook({
-//   sellOrderBook = [],
-//   buyOrderBook = [],
-  addToCart,
-  ethPrice,
+    
 }: Props) {
 
   const orderBooks = generateDummyOrderBooks(200);
-  const buyOrderBook = orderBooks.buyOrderBook;
-  const sellOrderBook = orderBooks.sellOrderBook;
+  const buyOrderBook = orderBooks.buyOrderBook || [];
+  const sellOrderBook = orderBooks.sellOrderBook || [];
 
   const [scrollEffect, setScrollEffect] = useState(false);
 
@@ -51,8 +46,7 @@ function OrderBook({
   let maxBucketAmount = 0;
 
   if (typeof window === 'undefined') {
-    return <div></div>
-
+    return <div>Fetching...</div>
   }
 
   let sellOrderBookDiv = document.getElementById("sellOrderBook");
