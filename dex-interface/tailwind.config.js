@@ -7,13 +7,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        themeGreen: "#4EAD95",
         themeRed: "#FF6B6B",
         themeOrange: "#FFB26B",
         themeBlue: "#8099F8",
         themeDarkGrey: "#131A19",
         themeBorderGrey: "#2F413E",
-        themeTextGrey: "#979797"
+        themeTextGrey: "#979797",
+        themePurple: "#BD74D8",
+        themeGreen: "#4EAD95",
       },
     },
   },

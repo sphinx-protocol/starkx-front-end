@@ -26,16 +26,16 @@ function Orders({
     );
   };
   return (
-    <div className="flex flex-col w-full p-5 mt-5shadow-md h-96 border-b-400 min-w-min">
+    <div className="text-themeTextGrey flex flex-col w-full p-5 mt-5shadow-md h-96 border-b-400 min-w-min">
       <div className="flex flex-row">
         <div className="text-themeOrange">
             Open Orders ({limitBuyOrders.length + limitSellOrders.length})
         </div>
-        <div className="ml-5">
+        <div className="ml-6 cursor-pointer">
             Transaction History (23)
         </div>
       </div>
-      <div className="flex flex-row justify-between w-full border-b-2 border-gray-300 mt-2">
+      <div className="flex flex-row justify-between w-full border-b-2 border-themeBorderGrey mt-2">
         <div className="text-center w-2/12 font-bold">Date</div>
         <div className="text-center w-1/12 font-bold">Type</div>
         <div className="text-center w-2/12 font-bold">Price</div>
@@ -46,27 +46,27 @@ function Orders({
       </div>
       {limitBuyOrders.map((order: any) => {
         return (
-          <div className="flex flex-row justify-between w-full h-10 items-center border-b-2 border-gray-300">
+          <div className="flex flex-row justify-between w-full h-10 items-center border-b-2 border-themeBorderGrey">
             <div className="text-center w-2/12">{order.date}</div>
             <div className="text-center w-1/12 text-themeGreen">{order.type}</div>
             <div className="text-center w-2/12">{order.price}</div>
             <div className="text-center w-1/12">{order.amount}</div>
             <div className="text-center w-2/12">{order.total}</div>
             <div className="text-center w-2/12">{order.filled}</div>
-            <button className="text-blue-500 w-2/12">Cancel</button>
+            <button className="text-themeOrange w-2/12">Cancel</button>
           </div>
         );
       })}
       {limitSellOrders.map((order: any) => {
         return (
-            <div className="flex flex-row justify-between w-full h-10 items-center border-b-2 border-gray-300">
+            <div className="flex flex-row justify-between w-full h-10 items-center border-b-2 border-themeBorderGrey">
             <div className="text-center w-2/12">{order.date}</div>
             <div className="text-center w-1/12 text-themeRed">{order.type}</div>
             <div className="text-center w-2/12">{order.price}</div>
             <div className="text-center w-1/12">{order.amount}</div>
             <div className="text-center w-2/12">{order.total}</div>
             <div className="text-center w-2/12">{order.filled}</div>
-            <button className="text-blue-500 w-2/12">Cancel</button>
+            <button className="text-themeOrange w-2/12">Cancel</button>
           </div>
         );
       })}

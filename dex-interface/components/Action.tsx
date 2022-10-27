@@ -7,7 +7,7 @@ export default function Action() {
     const [limitSellAmount, setLimitSellAmount] = useState(0);
 
     return (
-        <div className="text-white flex flex-col w-full p-5">
+        <div className="text-themeTextGrey flex flex-col w-full p-5">
            <div className="flex flex-row">
             <div className="text-themeOrange">Limit</div>
             <div className="ml-3">Market</div>
@@ -21,31 +21,31 @@ export default function Action() {
                         <div>123,212 USDC</div>
                     </div>
                 </div>
-                <div className="flex flex-row border border-black items-center mb-2">
+                <div className="flex flex-row border border-themeBorderGrey items-center mb-2 mt-2">
                     <input
                     type="number"
                     name="buyPrice"
                     id="price"
                     value={limitBuyPrice}
-                    className="block w-full h-6 pl-12 pr-12 border-gray-800 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="block w-full h-6 pl-12 pr-12 bg-themeDarkGrey rounded-md focus:bg-themeDarkGrey focus:border-themeDarkGrey sm:text-sm"
                     placeholder="0.00"
                     onChange={(event) => setLimitBuyPrice(Number(event.target.value))}
                     />
                     <div>Price</div>
                 </div>
-                <div className="flex flex-row border border-black items-center mb-2">
+                <div className="flex flex-row border border-themeBorderGrey items-center mb-2">
                     <input
                     type="number"
                     name="buyAmount"
                     id="price"
                     value={limitBuyAmount}
-                    className="block w-full h-6 pl-12 pr-12 border-gray-800 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="block w-full h-6 pl-12 pr-12 bg-themeDarkGrey  rounded-md focus:ring-indigo-500 focus:border-themeDarkGrey sm:text-sm"
                     placeholder="0.00"
                     onChange={(event) => setLimitBuyAmount(Number(event.target.value))}
                     />
                     <div>Amount</div>
                 </div>
-                <button className="bg-themeGreen">Place Buy Order</button>
+                <button className="mt-2 bg-themeGreen text-black">Place Buy Order</button>
             </div>
             <div className="flex flex-col w-full ml-16">
                 <div className="w-full">
@@ -54,31 +54,31 @@ export default function Action() {
                         <div>35 ETH</div>
                     </div>
                 </div>
-                <div className="flex flex-row border border-black items-center mb-2">
+                <div className="mt-2 flex flex-row border border-themeBorderGrey items-center mb-2">
                     <input
                     type="number"
                     name="sellPrice"
                     id="price"
-                    value={limitBuyPrice}
-                    className="block w-full h-6 pl-12 pr-12 border-gray-800 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    value={limitSellPrice}
+                    className="block w-full h-6 pl-12 pr-12 bg-themeDarkGrey border-themeBorderGrey rounded-md focus:ring-indigo-500 focus:border-themeDarkGrey sm:text-sm"
                     placeholder="0.00"
                     onChange={(event) => setLimitSellPrice(Number(event.target.value))}
                     />
                     <div>Price</div>
                 </div>
-                <div className="flex flex-row border border-black items-center mb-2">
+                <div className="flex flex-row border border-themeBorderGrey items-center mb-2">
                     <input
                     type="number"
                     name="sellAmount"
                     id="price"
-                    value={limitBuyAmount}
-                    className="block w-full h-6 pl-12 pr-12 border-gray-800 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    value={limitSellAmount}
+                    className="block w-full h-6 pl-12 pr-12 bg-themeDarkGrey border-themeBorderGrey rounded-md focus:bg-themeDarkGrey focus:border-themeDarkGrey sm:text-sm"
                     placeholder="0.00"
                     onChange={(event) => setLimitSellAmount(Number(event.target.value))}
                     />
                     <div>Amount</div>
                 </div>
-                <button className="bg-themeRed">Place Sell Order</button>
+                <button className="mt-2 bg-themeRed text-black">Place Sell Order</button>
             </div>
            </div>
         </div>
