@@ -12,10 +12,10 @@ function Profile() {
     return (
       <div>
         Connected to {address}
-        <button onClick={() => disconnect()} className="border border-black">Disconnect</button>
+        <button onClick={() => disconnect()} className="border border-black bg-themeOrange">Disconnect</button>
       </div>
     )
-  return <button onClick={() => connect()}>Connect Wallet</button>
+  return <button onClick={() => connect()} className="border border-black bg-themeOrange">Connect Wallet</button>
 }
 
 

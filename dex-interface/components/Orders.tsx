@@ -36,37 +36,37 @@ function Orders({
         </div>
       </div>
       <div className="flex flex-row justify-between w-full border-b-2 border-gray-300 mt-2">
-        <div className="w-2/12 font-bold">Date</div>
-        <div className="w-1/12 font-bold">Type</div>
-        <div className="w-2/12 font-bold">Price</div>
-        <div className="w-1/12 font-bold">Amount</div>
-        <div className="w-2/12 font-bold">Total</div>
-        <div className="w-2/12 font-bold">Filled</div>
-        <div className="w-2/12 font-bold">Action</div>
+        <div className="text-center w-2/12 font-bold">Date</div>
+        <div className="text-center w-1/12 font-bold">Type</div>
+        <div className="text-center w-2/12 font-bold">Price</div>
+        <div className="text-center w-1/12 font-bold">Amount</div>
+        <div className="text-center w-2/12 font-bold">Total</div>
+        <div className="text-center w-2/12 font-bold">Filled</div>
+        <div className="text-center w-2/12 font-bold">Action</div>
       </div>
       {limitBuyOrders.map((order: any) => {
         return (
           <div className="flex flex-row justify-between w-full h-10 items-center border-b-2 border-gray-300">
-            <div className="w-2/12">{order.date}</div>
-            <div className="w-1/12 text-themeGreen">{order.type}</div>
-            <div className="w-2/12">{order.price}</div>
-            <div className="w-1/12">{order.amount}</div>
-            <div className="w-2/12">{order.total}</div>
-            <div className="w-2/12">{order.filled}</div>
-            <div className="text-blue-500 w-2/12">Cancel</div>
+            <div className="text-center w-2/12">{order.date}</div>
+            <div className="text-center w-1/12 text-themeGreen">{order.type}</div>
+            <div className="text-center w-2/12">{order.price}</div>
+            <div className="text-center w-1/12">{order.amount}</div>
+            <div className="text-center w-2/12">{order.total}</div>
+            <div className="text-center w-2/12">{order.filled}</div>
+            <button className="text-blue-500 w-2/12">Cancel</button>
           </div>
         );
       })}
       {limitSellOrders.map((order: any) => {
         return (
             <div className="flex flex-row justify-between w-full h-10 items-center border-b-2 border-gray-300">
-            <div className="w-2/12">{order.date}</div>
-            <div className="w-1/12 text-themeRed">{order.type}</div>
-            <div className="w-2/12">{order.price}</div>
-            <div className="w-1/12">{order.amount}</div>
-            <div className="w-2/12">{order.total}</div>
-            <div className="w-2/12">{order.filled}</div>
-            <div className="text-blue-500 w-2/12">Cancel</div>
+            <div className="text-center w-2/12">{order.date}</div>
+            <div className="text-center w-1/12 text-themeRed">{order.type}</div>
+            <div className="text-center w-2/12">{order.price}</div>
+            <div className="text-center w-1/12">{order.amount}</div>
+            <div className="text-center w-2/12">{order.total}</div>
+            <div className="text-center w-2/12">{order.filled}</div>
+            <button className="text-blue-500 w-2/12">Cancel</button>
           </div>
         );
       })}
