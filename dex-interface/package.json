@@ -11,6 +11,7 @@
     "next": "latest",
     "react": "18.1.0",
     "react-dom": "18.1.0",
+    "react-number-format": "^5.1.0",
     "wagmi": "^0.7.5"
   },
   "devDependencies": {
