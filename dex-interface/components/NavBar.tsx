@@ -8,10 +8,16 @@ export default function NavBar() {
         <div className="flex flex-row w-full justify-between border border-black">
             <div>Logo</div>
             <div className="flex justify-between">
-                <Link href="/markets" className="ml-3">
-                    Markets
-                </Link>
-                <div className="ml-3">Account</div>
+                <div className="ml-3">
+                    <Link href="/markets">
+                        Markets
+                    </Link>
+                </div>
+                <div className="ml-3">
+                    <Link href="/account" className="ml-3">
+                        Account
+                    </Link>
+                </div>
                 <div className="ml-3">GitBook</div>
                 <div className="flex flex-row mx-3">
                     <div>Twitter</div>

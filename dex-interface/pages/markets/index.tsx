@@ -19,13 +19,6 @@ const Markets: NextPage = () => {
       </div>
     </div>
   </div>
-    // <div className="flex flex-col items-center justify-center bg-gray-100">
-    //   <div className="">Order Book</div>
-    //   <div>Chart</div>
-    //   <div>Buy</div>
-    //   <div>Sell</div>
-    //   <div>Open Orders</div>
-    // </div>
   )
 }
 
