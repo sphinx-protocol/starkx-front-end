@@ -4,7 +4,7 @@ import { useSignTypedData, useAccount } from 'wagmi'
 // import { utils } from '@snapshot-labs/sx';
 import { useState, useEffect } from "react";
 
-function getRSVFromSig(sig) {
+function getRSVFromSig(sig: any) {
   if (sig.startsWith('0x')) {
       sig = sig.substring(2);
   }
@@ -17,7 +17,7 @@ function getRSVFromSig(sig) {
 class SplitUint256 {
   low;
   high;
-  constructor(low, high) {
+  constructor(low: any, high: any) {
       this.low = low;
       this.high = high;
   }
@@ -25,12 +25,12 @@ class SplitUint256 {
       const uint = BigInt(this.low) + (BigInt(this.high) << BigInt(128));
       return uint;
   }
-  static fromUint(uint) {
+  static fromUint(uint: any) {
       const low = `0x${(uint & ((BigInt(1) << BigInt(128)) - BigInt(1))).toString(16)}`;
       const high = `0x${(uint >> BigInt(128)).toString(16)}`;
       return new SplitUint256(low, high);
   }
-  static fromHex(hex) {
+  static fromHex(hex: any) {
       return SplitUint256.fromUint(BigInt(hex));
   }
   toHex() {
@@ -49,7 +49,7 @@ const EIP712: NextPage = () => {
 
     const result = useSignTypedData({
       domain: {
-        name: 'snapshot-x',
+        name: 'stark-x',
         version: '1',
         chainId: '5',
       },
@@ -68,7 +68,7 @@ const EIP712: NextPage = () => {
       } as const, // <--- const assertion
     
       value: {
-        authenticator: "0x0283313110abbc9a60b7c2ae92d95084a7747e848777606972244fdcc66facf1",
+        authenticator: "0x01c9d8add6fbba9534ad3c623cc8ae3d18b0295a43c6feab83ea38614849db33",
         market: "0x06441c218ead27ee136579bad2c1705020e807f25d0b392e72b14e21b012b2f8",
         author: address,
         token: "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d", // token address
