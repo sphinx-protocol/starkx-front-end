@@ -26,7 +26,7 @@ function Orders({
     );
   };
   return (
-    <div className="flex flex-col w-full p-5 mt-5 bg-white border shadow-md h-96 border-b-400 min-w-min">
+    <div className="flex flex-col w-full p-5 mt-5shadow-md h-96 border-b-400 min-w-min">
       <div className="flex flex-row">
         <div className="text-themeOrange">
             Open Orders ({limitBuyOrders.length + limitSellOrders.length})

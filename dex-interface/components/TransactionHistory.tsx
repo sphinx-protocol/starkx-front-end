@@ -15,7 +15,7 @@ interface Props {
 
 function TransactionHistory({ }: Props) {
   return (
-    <div className="flex flex-col w-full p-5 mt-5 overflow-y-scroll shadow-md h-96">
+    <div className="flex flex-col w-full p-5 mt-5 overflow-y-scroll shadow-md h-96 text-themeTextGrey">
       <div className="flex flex-row w-full">
         <div className="w-1/5 text-center">Type</div>
         <div className="w-1/5  text-center">Price</div>
@@ -27,9 +27,10 @@ function TransactionHistory({ }: Props) {
           return (
             <a
               key={id}
-              className="flex flex-row items-center justify-between w-full h-4 mt-2 border border-white cursor-pointer text-s hover:border-blue-500"
+              className="flex flex-row items-center justify-between w-full mt-2 py-1 border border-themeBorderGrey cursor-pointer text-s hover:border-blue-500"
             //   href={"https://etherscan.io/tx/" + order.transactionHash}
               target="_blank"
+
             >
               <div className={order.type === "Buy" ? "w-1/5 text-themeGreen text-center" : "w-1/5 text-themeRed text-center"}>{order.type}</div>
               <div className="w-1/5 text-center">

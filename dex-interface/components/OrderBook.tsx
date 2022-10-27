@@ -112,7 +112,7 @@ function OrderBook({
   console.log(sortedSellBuckets);
 
   return (
-    <div className="flex flex-row w-full p-5 bg-white border shadow-md border-b-400 min-w-min">
+    <div className="text-themeTextGrey flex flex-row w-full p-5 shadow-md border-b-400 min-w-min">
       {/* <div className="flex justify-between">
         <div>Filter</div>
         <div>1</div>
@@ -124,16 +124,16 @@ function OrderBook({
         <p className="w-1/3 text-center">Total</p>
       </div>
         <div className="flex flex-col w-full">
-          <div className="overflow-y-scroll h-60" id="sellOrderBook">
+          <div className="overflow-y-scroll h-60 " id="sellOrderBook">
             {sortedSellBuckets &&
               sortedSellBuckets.map((bucket, id) => {
                 return (
                   <div
-                    className="relative flex flex-col w-full my-0.5 cursor-pointer border border-white hover:border-blue-500"
+                    className="relative flex flex-col w-full my-0.5 cursor-pointer border border-themeBorderGrey hover:border-blue-500"
                     key={id}
                   >
                     <div
-                      className="absolute h-full bg-red-300"
+                      className="absolute h-full bg-themeRed"
                       style={{
                         width: (bucket.amount / maxBucketAmount) * 100 + "%",
                       }}
@@ -142,13 +142,13 @@ function OrderBook({
                       id={id.toString()}
                       className="relative flex flex-row items-center justify-between px-1 text-black"
                     >
-                    <div>
+                    <div className="text-white">
                         {formatNumber(bucket.price)}
                     </div>
-                    <div>
+                    <div className="text-white">
                         {formatNumber(bucket.amount)}
                     </div>
-                    <div>
+                    <div className="text-white">
                         {formatNumber(bucket.total / 1e18)}
                     </div>
                     </div>
@@ -176,9 +176,9 @@ function OrderBook({
             {sortedBuyBuckets &&
               sortedBuyBuckets.map((bucket, id) => {
                 return (
-                  <div key={id.toString()} className="relative flex flex-col w-full my-0.5 cursor-pointer border border-white hover:border-blue-500">
+                  <div key={id.toString()} className="relative flex flex-col w-full my-0.5 cursor-pointer border border-themeBorderGrey hover:border-blue-500">
                     <div
-                      className={`h-full bg-green-300 absolute`}
+                      className={`h-full bg-themeGreen absolute`}
                       style={{
                         width: (bucket.amount / maxBucketAmount) * 100 + "%",
                       }}
@@ -187,13 +187,13 @@ function OrderBook({
                       id={id.toString()}
                       className="relative flex flex-row items-center justify-between px-1 text-black"
                     >
-                        <div>
+                        <div className="text-white">
                             {formatNumber(bucket.price)}
                         </div>
-                        <div>
+                        <div className="text-white">
                             {formatNumber(bucket.amount)}
                         </div>
-                        <div>
+                        <div className="text-white">
                             {formatNumber(bucket.total / 1e18)}
                         </div>
                     </div>

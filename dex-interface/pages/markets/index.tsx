@@ -17,17 +17,17 @@ const Markets: NextPage = () => {
     <div className="flex flex-col items-center w-full min-h-screen">
     <div className="flex flex-col max-w-7xl border border-black  w-full">
       <div className="flex flex-row w-full mt-5 border border-black">
-        <div className="flex flex-col w-3/12 h-full border border-black">
+        <div className="flex flex-col w-3/12 h-full border border-black bg-themeDarkGrey">
           <TransactionHistory />
         </div>
         <div className="flex flex-col w-9/12 h-full ml-5 border border-black">
-          <div className="border border-black w-full">
+          <div className="border border-black w-full bg-themeDarkGrey">
           <OrderBook />
           </div>
-          <div className="flex flex-row border border-black">
+          <div className="mt-5 flex flex-row border border-black bg-themeDarkGrey">
             <Action />
           </div>
-          <div className="border border-black">
+          <div className="mt-5 border border-black bg-themeDarkGrey">
             <Orders />
           </div>
         </div>

@@ -7,9 +7,9 @@ export default function Action() {
     const [limitSellAmount, setLimitSellAmount] = useState(0);
 
     return (
-        <div className="flex flex-col w-full">
+        <div className="text-white flex flex-col w-full p-5">
            <div className="flex flex-row">
-            <div>Limit</div>
+            <div className="text-themeOrange">Limit</div>
             <div className="ml-3">Market</div>
             <div className="ml-3">Stop-Limit</div>
            </div>
