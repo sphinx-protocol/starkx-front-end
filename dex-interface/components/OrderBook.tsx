@@ -42,8 +42,6 @@ function OrderBook({
   const orderBooks = generateDummyOrderBooks(200);
   const buyOrderBook = orderBooks.buyOrderBook;
   const sellOrderBook = orderBooks.sellOrderBook;
-  console.log("buyOrderBook", buyOrderBook);
-  console.log("sellOrderBook", sellOrderBook);
 
   const [scrollEffect, setScrollEffect] = useState(false);
 
@@ -51,12 +49,13 @@ function OrderBook({
   let sellBuckets: SellBuckets = {};
 
   let maxBucketAmount = 0;
-  let sellOrderBookDiv: any;
 
-  if (typeof window !== 'undefined') {
-    sellOrderBookDiv = document.getElementById("sellOrderBook");
+  if (typeof window === 'undefined') {
+    return <div></div>
+
   }
 
+  let sellOrderBookDiv = document.getElementById("sellOrderBook");
   React.useEffect(() => {
     if (sellOrderBookDiv && !scrollEffect) {
       sellOrderBookDiv.scrollTop = sellOrderBookDiv.scrollHeight;
@@ -169,16 +168,10 @@ function OrderBook({
       </div>
       <div className="flex justify-center w-full m-1">
         {
-            buyOrderBook.length
-              ? Number(buyOrderBook[buyOrderBook.length - 1].price) / 1e18
+            sortedBuyBuckets.length
+              ? "$" + Number(sortedBuyBuckets[0].price)
               : "-"
-          }
-        {
-            buyOrderBook.length
-              ? (Number(buyOrderBook[buyOrderBook.length - 1].price) / 1e18) *
-                ethPrice
-              : "-"
-          }     
+          }   
       </div>
       <div className="flex flex-col items-end">
         <div className="flex flex-col w-full">
