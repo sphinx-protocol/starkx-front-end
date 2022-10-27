@@ -45,11 +45,12 @@ function OrderBook({
 
   let maxBucketAmount = 0;
 
-  if (typeof window === 'undefined') {
-    return <div>Fetching...</div>
+  let sellOrderBookDiv: any;
+
+  if (typeof window !== 'undefined') {
+    sellOrderBookDiv = document.getElementById("sellOrderBook");
   }
 
-  let sellOrderBookDiv = document.getElementById("sellOrderBook");
   React.useEffect(() => {
     if (sellOrderBookDiv && !scrollEffect) {
       sellOrderBookDiv.scrollTop = sellOrderBookDiv.scrollHeight;
@@ -130,9 +131,6 @@ function OrderBook({
                   <div
                     className="relative flex flex-col w-full my-0.5 cursor-pointer border border-white hover:border-blue-500"
                     key={id}
-                    onClick={() =>
-                      addToCart(sortedSellBuckets[Number(id)].orders)
-                    }
                   >
                     <div
                       className="absolute h-full bg-red-300"

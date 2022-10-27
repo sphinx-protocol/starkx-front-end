@@ -19,7 +19,7 @@ const Markets: NextPage = () => {
           <OrderBook />
         </div>
         <div className="flex flex-col w-9/12 h-full ml-5 border border-black">
-          <div className="border border-black">
+          <div className="border border-black h-96">
             {/* <PlotChart /> */}
             Chart
           </div>
