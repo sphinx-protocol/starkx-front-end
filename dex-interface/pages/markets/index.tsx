@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic'
 
 import Action from "../../components/Action";
 import OrderBook from "../../components/OrderBook";
+import Orders from "../../components/Orders";
 import { createChart } from 'lightweight-charts';
 
 // const {createChart} = dynamic(import('lightweight-charts'), { ssr: false });
@@ -26,7 +27,9 @@ const Markets: NextPage = () => {
           <div className="flex flex-row border border-black">
             <Action />
           </div>
-          <div className="border border-black">Open orders</div>
+          <div className="border border-black">
+            <Orders />
+          </div>
         </div>
       </div>
     </div>
