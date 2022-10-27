@@ -51,14 +51,14 @@ function OrderBook({
     sellOrderBookDiv = document.getElementById("sellOrderBook");
   }
 
-  React.useEffect(() => {
-    if (sellOrderBookDiv && !scrollEffect) {
-      sellOrderBookDiv.scrollTop = sellOrderBookDiv.scrollHeight;
-      if (sellOrderBookDiv.scrollTop > 0) {
-        setScrollEffect(true);
-      }
-    }
-  }, [sellOrderBook]);
+//   React.useEffect(() => {
+//     if (sellOrderBookDiv && !scrollEffect) {
+//       sellOrderBookDiv.scrollTop = sellOrderBookDiv.scrollHeight;
+//       if (sellOrderBookDiv.scrollTop > 0) {
+//         setScrollEffect(true);
+//       }
+//     }
+//   }, [sellOrderBook]);
 
   buyOrderBook.forEach((order) => {
     const bucket: number = Math.floor(Number(order.price) / 1e18);

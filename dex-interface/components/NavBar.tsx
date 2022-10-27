@@ -17,7 +17,9 @@ export default function NavBar() {
                         Account
                     </Link>
                 </div>
-                <div className="ml-5  text-white">GitBook</div>
+                <div className="ml-5  text-white">
+                    <a href="https://stark-x.gitbook.io/docs/" target="_blank">GitBook</a>
+                </div>
                 <div className="flex flex-row ml-10">
                     <img src={"/twitter.svg"} alt="Twitter Logo" className="w-6 ml-3 cursor-pointer"></img>
                     <img src={"/discord.svg"} alt="Discord Logo" className="w-6 ml-3 cursor-pointer"></img>
