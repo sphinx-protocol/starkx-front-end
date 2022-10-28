@@ -36,7 +36,7 @@ class SplitUint256 {
   toHex() {
       return `0x${this.toUint().toString(16)}`;
   }
-  static fromObj(s) {
+  static fromObj(s: any) {
       return new SplitUint256(s.low, s.high);
   }
 }
