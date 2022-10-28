@@ -1,10 +1,10 @@
 import {BuyOrderBook, SellOrderBook} from "../interfaces/interfaces";
 
-const randomIntFromInterval = (min, max) => { // min and max included 
+const randomIntFromInterval = (min: number, max: number) => { // min and max included 
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
-const generateDummyOrderBooks = (amount) => {
+const generateDummyOrderBooks = (amount :number) => {
     const buyOrderBook: BuyOrderBook[]  = [];
     const sellOrderBook: SellOrderBook[] = [];
 

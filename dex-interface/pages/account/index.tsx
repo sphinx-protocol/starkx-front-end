@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import {useState} from "react";
 
 
-const renderToken = (name, amount) => {
+const renderToken = (name : string, amount: number) => {
     const logos = {
 
     }
