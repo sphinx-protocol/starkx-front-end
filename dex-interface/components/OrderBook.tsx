@@ -112,82 +112,38 @@ function OrderBook({
   console.log(sortedSellBuckets);
 
   return (
-    <div className="text-themeTextGrey flex flex-row w-full p-5 shadow-md border-b-400 min-w-min">
-      {/* <div className="flex justify-between">
-        <div>Filter</div>
-        <div>1</div>
-      </div> */}
-      <div className="flex flex-col items-end w-full">
-      <div className="flex justify-between mb-1 text-xs w-full">
-        <p className="w-1/3 text-center">Price</p>
-        <p className="w-1/3 text-center">Quantity</p>
-        <p className="w-1/3 text-center">Total</p>
-      </div>
-        <div className="flex flex-col w-full">
-          <div className="overflow-y-scroll h-60 " id="sellOrderBook">
-            {sortedSellBuckets &&
-              sortedSellBuckets.map((bucket, id) => {
-                return (
-                  <div
-                    className="relative flex flex-col w-full my-0.5 cursor-pointer border border-themeBorderGrey hover:border-blue-500"
-                    key={id}
-                  >
-                    <div
-                      className="absolute h-full bg-themeRed"
-                      style={{
-                        width: (bucket.amount / maxBucketAmount) * 100 + "%",
-                      }}
-                    ></div>
-                    <div
-                      id={id.toString()}
-                      className="relative flex flex-row items-center justify-between px-1 text-black"
-                    >
-                    <div className="text-white">
-                        {formatNumber(bucket.price)}
-                    </div>
-                    <div className="text-white">
-                        {formatNumber(bucket.amount)}
-                    </div>
-                    <div className="text-white">
-                        {formatNumber(bucket.total / 1e18)}
-                    </div>
-                    </div>
-                  </div>
-                );
-              })}
-          </div>
+    <div className="flex flex-col text-themeTextGrey">
+        <div className=" text-lg px-5 mt-5">Order Books</div>
+        <div className="flex flex-row w-full p-5 shadow-md border-b-400 min-w-min">
+        {/* <div className="flex justify-between">
+            <div>Filter</div>
+            <div>1</div>
+        </div> */}
+        <div className="flex flex-col items-end w-full">
+        <div className="flex justify-between mb-1 text-xs w-full">
+            <p className="w-1/3 text-center">Price</p>
+            <p className="w-1/3 text-center">Quantity</p>
+            <p className="w-1/3 text-center">Total</p>
         </div>
-      </div>
-      <div className="flex justify-center items-center w-full m-1">
-        Current Price: 
-        {
-            sortedBuyBuckets.length
-              ? " $" + Number(sortedBuyBuckets[0].price).toFixed(2)
-              : "-"
-          }   
-      </div>
-      <div className="flex flex-col items-end w-full">
-    <div className="flex justify-between mb-1 text-xs w-full">
-        <p className="w-1/3 text-center">Price</p>
-        <p className="w-1/3 text-center">Quantity</p>
-        <p className="w-1/3 text-center">Total</p>
-      </div>
-        <div className="flex flex-col w-full">
-          <div className="overflow-y-scroll h-60">
-            {sortedBuyBuckets &&
-              sortedBuyBuckets.map((bucket, id) => {
-                return (
-                  <div key={id.toString()} className="relative flex flex-col w-full my-0.5 cursor-pointer border border-themeBorderGrey hover:border-blue-500">
+            <div className="flex flex-col w-full">
+            <div className="overflow-y-scroll h-60 " id="sellOrderBook">
+                {sortedSellBuckets &&
+                sortedSellBuckets.map((bucket, id) => {
+                    return (
                     <div
-                      className={`h-full bg-themeGreen absolute`}
-                      style={{
-                        width: (bucket.amount / maxBucketAmount) * 100 + "%",
-                      }}
-                    ></div>
-                    <div
-                      id={id.toString()}
-                      className="relative flex flex-row items-center justify-between px-1 text-black"
+                        className="relative flex flex-col w-full my-0.5 cursor-pointer border border-themeBorderGrey hover:border-blue-500"
+                        key={id}
                     >
+                        <div
+                        className="absolute h-full bg-themeRed"
+                        style={{
+                            width: (bucket.amount / maxBucketAmount) * 100 + "%",
+                        }}
+                        ></div>
+                        <div
+                        id={id.toString()}
+                        className="relative flex flex-row items-center justify-between px-1 text-black"
+                        >
                         <div className="text-white">
                             {formatNumber(bucket.price)}
                         </div>
@@ -197,13 +153,60 @@ function OrderBook({
                         <div className="text-white">
                             {formatNumber(bucket.total / 1e18)}
                         </div>
+                        </div>
                     </div>
-                  </div>
-                );
-              })}
-          </div>
+                    );
+                })}
+            </div>
+            </div>
         </div>
-      </div>
+        <div className="flex justify-center items-center w-full m-1">
+            Current Price: 
+            {
+                sortedBuyBuckets.length
+                ? " $" + Number(sortedBuyBuckets[0].price).toFixed(2)
+                : "-"
+            }   
+        </div>
+        <div className="flex flex-col items-end w-full">
+        <div className="flex justify-between mb-1 text-xs w-full">
+            <p className="w-1/3 text-center">Price</p>
+            <p className="w-1/3 text-center">Quantity</p>
+            <p className="w-1/3 text-center">Total</p>
+        </div>
+            <div className="flex flex-col w-full">
+            <div className="overflow-y-scroll h-60">
+                {sortedBuyBuckets &&
+                sortedBuyBuckets.map((bucket, id) => {
+                    return (
+                    <div key={id.toString()} className="relative flex flex-col w-full my-0.5 cursor-pointer border border-themeBorderGrey hover:border-blue-500">
+                        <div
+                        className={`h-full bg-themeGreen absolute`}
+                        style={{
+                            width: (bucket.amount / maxBucketAmount) * 100 + "%",
+                        }}
+                        ></div>
+                        <div
+                        id={id.toString()}
+                        className="relative flex flex-row items-center justify-between px-1 text-black"
+                        >
+                            <div className="text-white">
+                                {formatNumber(bucket.price)}
+                            </div>
+                            <div className="text-white">
+                                {formatNumber(bucket.amount)}
+                            </div>
+                            <div className="text-white">
+                                {formatNumber(bucket.total / 1e18)}
+                            </div>
+                        </div>
+                    </div>
+                    );
+                })}
+            </div>
+            </div>
+        </div>
+        </div>
     </div>
   );
 }

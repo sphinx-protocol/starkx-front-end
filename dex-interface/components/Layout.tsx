@@ -4,7 +4,7 @@ import Footer from "./Footer";
 
 export default function Layout({ children }: any) {
   return (
-    <div className="bg-black">
+    <div className="bg-black w-full">
       <NavBar />
       {children}
       <Footer />

@@ -45,7 +45,7 @@ export default function Action() {
                     />
                     <div>Amount</div>
                 </div>
-                <button className="mt-2 bg-themeGreen text-black">Place Buy Order</button>
+                <button className="mt-2 p-2 bg-themeGreen text-black">Place Buy Order</button>
             </div>
             <div className="flex flex-col w-full ml-16">
                 <div className="w-full">
@@ -78,7 +78,7 @@ export default function Action() {
                     />
                     <div>Amount</div>
                 </div>
-                <button className="mt-2 bg-themeRed text-black">Place Sell Order</button>
+                <button className="mt-2 p-2 bg-themeRed text-black">Place Sell Order</button>
             </div>
            </div>
         </div>

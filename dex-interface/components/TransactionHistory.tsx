@@ -15,8 +15,9 @@ interface Props {
 
 function TransactionHistory({ }: Props) {
   return (
-    <div className="flex flex-col w-full p-5 mt-5 overflow-y-scroll shadow-md h-96 text-themeTextGrey">
-      <div className="flex flex-row w-full">
+    <div className="flex flex-col w-full px-5 mt-5 overflow-y-scroll shadow-md h-96 text-themeTextGrey">
+      <div className="text-lg">Recent Transactions</div>
+      <div className="flex flex-row w-full mt-3">
         <div className="w-1/5 text-center">Type</div>
         <div className="w-1/5  text-center">Price</div>
         <div className="w-1/5  text-center ">Amount</div>
