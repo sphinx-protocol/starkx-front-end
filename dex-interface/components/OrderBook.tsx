@@ -160,13 +160,20 @@ function OrderBook({
             </div>
             </div>
         </div>
-        <div className="flex justify-center items-center w-full m-1">
-            Current Price: 
+        <div className="flex flex-col justify-start items-center w-full m-1">
+            <div>Market Pair: ETH/USDC</div>
+            <div className="text-white text-lg">
+            Price: 
             {
                 sortedBuyBuckets.length
-                ? " $" + Number(sortedBuyBuckets[0].price).toFixed(2)
+                ?  " " + Number(sortedBuyBuckets[0].price).toFixed(2) + " USDC/ETH"
                 : "-"
             }   
+            </div>
+            <div className="flex flex-row mt-3">
+                <img src="/USDC.svg" className="w-12"></img>
+                <img src="/ETHEREUM.svg" className="w-12 ml-3"></img>
+            </div>
         </div>
         <div className="flex flex-col items-end w-full">
         <div className="flex justify-between mb-1 text-xs w-full">
