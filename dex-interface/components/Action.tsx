@@ -31,7 +31,7 @@ export default function Action() {
                     placeholder="0.00"
                     onChange={(event) => setLimitBuyPrice(Number(event.target.value))}
                     />
-                    <div>Price</div>
+                    <div className="mr-2">Price</div>
                 </div>
                 <div className="flex flex-row border border-themeBorderGrey items-center mb-2">
                     <input
@@ -43,7 +43,7 @@ export default function Action() {
                     placeholder="0.00"
                     onChange={(event) => setLimitBuyAmount(Number(event.target.value))}
                     />
-                    <div>Amount</div>
+                    <div className="mr-2">Amount</div>
                 </div>
                 <button className="mt-2 p-2 bg-themeGreen text-black">Place Buy Order</button>
             </div>
@@ -64,7 +64,7 @@ export default function Action() {
                     placeholder="0.00"
                     onChange={(event) => setLimitSellPrice(Number(event.target.value))}
                     />
-                    <div>Price</div>
+                    <div className="mr-2">Price</div>
                 </div>
                 <div className="flex flex-row border border-themeBorderGrey items-center mb-2">
                     <input
@@ -76,7 +76,7 @@ export default function Action() {
                     placeholder="0.00"
                     onChange={(event) => setLimitSellAmount(Number(event.target.value))}
                     />
-                    <div>Amount</div>
+                    <div className="mr-2">Amount</div>
                 </div>
                 <button className="mt-2 p-2 bg-themeRed text-black">Place Sell Order</button>
             </div>

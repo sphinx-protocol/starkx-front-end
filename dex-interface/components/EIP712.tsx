@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { signTypedData } from '@wagmi/core';
 import type { NextPage } from 'next'
 import { useSignTypedData, useAccount } from 'wagmi'
@@ -43,9 +45,9 @@ class SplitUint256 {
 
 const EIP712: NextPage = () => {
   const { address, isConnected } = useAccount()
-  const [ r, setR ] = useState("") as String;
-  const [ s, setS ] = useState("") as String;
-  const [ v, setV ] = useState("") as String;
+  const [ r, setR ] = useState<SplitUint256>();
+  const [ s, setS ] = useState<SplitUint256>();
+  const [ v, setV ] = useState("");
 
     const result = useSignTypedData({
       domain: {
