@@ -59,25 +59,29 @@ const EIP712: NextPage = () => {
       types: {
         Order: [
           { name: 'authenticator', type: 'bytes32' },
-          { name: 'market', type: 'bytes32' },
+          { name: 'base_asset', type: 'bytes32' },
           { name: 'author', type: 'address' },
-          { name: 'token', type: 'address' },
+          { name: 'quote_asset', type: 'bytes32' },
           { name: 'amount', type: 'uint256' },
           { name: 'price', type: 'uint256' },
           { name: 'strategy', type: 'uint256' },
+          { name: 'chainId', type: 'uint256' },
+          { name: 'orderId', type: 'uint256' },
           { name: 'salt', type: 'uint256' },
         ],
       } as const, // <--- const assertion
     
       value: {
         authenticator: "0x01c9d8add6fbba9534ad3c623cc8ae3d18b0295a43c6feab83ea38614849db33",
-        market: "0x06441c218ead27ee136579bad2c1705020e807f25d0b392e72b14e21b012b2f8",
-        author: address,
-        token: "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d", // token address
+        base_asset: "0x06441c218ead27ee136579bad2c1705020e807f25d0b392e72b14e21b012b2f8",
+        author: author, // author
+        quote_asset: "0x06441c218ead27ee136579bad2c1705020e807f25d0b392e72b14e21b012b233", // token address
         amount: 1000,
         price: 200,
         strategy: 1,
-        salt: '0x1',
+        chainId: 5,
+        orderId: 123456,
+        salt: salt.toHex(),
       },
     })
 
