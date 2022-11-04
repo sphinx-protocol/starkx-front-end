@@ -1,7 +1,9 @@
 import type { NextPage } from 'next'
 import {useState} from "react";
-import { useContractRead,useAccount } from 'wagmi'
+import { useContractRead, useContractWrite, useAccount } from 'wagmi'
 import ERC20Fake from "../../abi/ERC20Fake.json";
+import L1EthRemoteCore from "../../abi/L1EthRemoteCore.json";
+import { tokenAddresses, contractAddresses } from '../../utils/addresses';
 
 const renderToken = (name : string, amount: any) => {
     const logos = {
@@ -18,29 +20,44 @@ const renderToken = (name : string, amount: any) => {
 }
 
 const Account: NextPage = () => {
-    const { address = "", isConnected } = useAccount();
-    const WETHBalance = useContractRead({
-        address: "0x0e9A9Ac3Aaf264Af4F6716C2FC982CF58F3E591D",
+   const { address, isConnected } = useAccount();
+   const [ depositAmount, setDepositAmount] = useState(0);
+   const [ withdrawAmount, setWithdrawAmount] = useState(0);
+   const [ selectedDepositToken = "USDC", setSelectedDepositToken] = useState("USDC");
+   const [ selectedWithdrawToken = "USDC", setSelectedWithdrawToken] = useState("USDC");
+
+   const WETHBalance = useContractRead({
+        address: tokenAddresses["WETH"],
         abi: ERC20Fake.abi,
         functionName: "balanceOf",
         args: [address],
     });
+
     const USDCBalance = useContractRead({
-        address: "0x41FE9AC7a76D7a20794551a3E8Ba445c3C635106",
+        address: tokenAddresses["USDC"],
         abi: ERC20Fake.abi,
         functionName: "balanceOf",
         args: [address],
     });
+
     const DAIBalance = useContractRead({
-        address: "0x45f2B2E318412d1f8102D1369B4C811421017a34",
+        address: tokenAddresses["DAI"],
         abi: ERC20Fake.abi,
         functionName: "balanceOf",
         args: [address],
     });
-    console.log(address);
-    console.log(WETHBalance.data);
-   const [depositAmount, setDepositAmount] = useState(0);
-   const [withdrawAmount, setWithdrawAmount] = useState(0);
+
+    const L1EthRemoteCoreDeposit = useContractWrite({
+        mode: "recklesslyUnprepared",
+        address: contractAddresses["L1EthRemoteCore"],
+        abi: L1EthRemoteCore.abi,
+        functionName: "remoteDepositAccount",
+        args: [tokenAddresses[selectedDepositToken], depositAmount],
+    });
+
+    const handleDropdownChange = (e) => {
+        setSelectedDepositToken(e.target.value);
+    }
 
   return (
     <div className="flex flex-col items-center w-full min-h-screen">
@@ -61,9 +78,9 @@ const Account: NextPage = () => {
                     </div>
                     <div className="mt-10">Virtual Deposit From Ethereum to Starknet</div>
                     <div className="relative w-full lg:max-w-sm mt-3">
-                    <select className="bg-themePurple w-full p-2.5 text-black  rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
+                    <select onChange={(e) => handleDropdownChange(e)} className="bg-themePurple w-full p-2.5 text-black  rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
                         <option selected disabled hidden>Select Token</option>
-                        <option>Ethereum</option>
+                        <option>WETH</option>
                         <option>DAI</option>
                         <option>USDC</option>
                     </select>
@@ -74,10 +91,10 @@ const Account: NextPage = () => {
                             id="price"
                             value={depositAmount}
                             className="mt-1 block w-full h-6 pl-12 pr-12 bg-themeDarkGrey border border-themeBorderGrey rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            placeholder="0.00"
+                            // placeholder="0.00"
                             onChange={(event) => setDepositAmount(Number(event.target.value))}
                             />
-                    <button className="mt-3 p-2 w-36 bg-themeGreen text-black">Deposit</button>
+                    <button className="mt-3 p-2 w-36 bg-themeGreen text-black" onClick={() => L1EthRemoteCoreDeposit.write()}>Deposit</button>
                 </div>
             </div>
             <div className="w-full flex-col ml-20 bg-themeDarkGrey p-5">
@@ -98,7 +115,7 @@ const Account: NextPage = () => {
                 </select>
                 <select className="mt-2 bg-themePurple w-full p-2.5 text-black  rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
                     <option selected disabled hidden>Select Token</option>
-                    <option>Ethereum</option>
+                    <option>WETH</option>
                     <option>DAI</option>
                     <option>USDC</option>
                 </select>
@@ -109,7 +126,7 @@ const Account: NextPage = () => {
                         id="price"
                         value={withdrawAmount}
                         className="mt-2 block w-full h-6 pl-12 pr-12 bg-themeDarkGrey border border-themeBorderGrey rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        placeholder="0.00"
+                        // placeholder="0.00"
                         onChange={(event) => setWithdrawAmount(Number(event.target.value))}
                         />
                 <div>
