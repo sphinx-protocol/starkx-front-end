@@ -3,7 +3,7 @@ import {useState} from "react";
 import { useContractRead, useContractWrite, useAccount } from 'wagmi'
 import ERC20Fake from "../../abi/ERC20Fake.json";
 import L1EthRemoteCore from "../../abi/L1EthRemoteCore.json";
-import { tokenAddresses, contractAddresses } from '../../utils/addresses';
+import { tokenAddresses, contractAddresses, remoteTokenAddresses } from '../../utils/addresses';
 
 const renderToken = (name : string, amount: any) => {
     const logos = {
@@ -55,7 +55,15 @@ const Account: NextPage = () => {
         args: [tokenAddresses[selectedDepositToken], depositAmount],
     });
 
-    const handleDropdownChange = (e) => {
+    const L1EthRemoteCoreWithdraw = useContractWrite({
+        mode: "recklesslyUnprepared",
+        address: contractAddresses["L1EthRemoteCore"],
+        abi: L1EthRemoteCore.abi,
+        functionName: "confirmRemoteWithdraw",
+        args: [remoteTokenAddresses[selectedWithdrawToken], withdrawAmount],
+    });
+
+    const handleDropdownChange = (e: any) => {
         setSelectedDepositToken(e.target.value);
     }
 
@@ -131,8 +139,8 @@ const Account: NextPage = () => {
                         />
                 <div>
                     <div className="mt-2">
-                        <button className="mt-2 p-2 w-36 bg-themeOrange text-black">Deposit</button>
-                        <button className="mt-2 p-2 w-36 bg-themeBlue text-black m-4">Wtihdraw</button>
+                        <button className="mt-2 p-2 w-36 bg-themeOrange text-black">Start Process</button>
+                        <button className="mt-2 p-2 w-36 bg-themeBlue text-black m-4">Finish Withdraw</button>
                     </div>
                 </div>
             </div>

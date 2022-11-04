@@ -4,8 +4,14 @@ const tokenAddresses = {
     DAI: "0x45f2B2E318412d1f8102D1369B4C811421017a34",
 };
 
+const remoteTokenAddresses = {
+    USDC: "",
+    WETH: "",
+    DAI: "",
+};
+
 const contractAddresses = {
     L1EthRemoteCore: "0xF7D18E41638cC1790999Fc390B72c8b0A574602d"
 }
   
-  export { tokenAddresses, contractAddresses };
+  export { tokenAddresses, contractAddresses, remoteTokenAddresses };
