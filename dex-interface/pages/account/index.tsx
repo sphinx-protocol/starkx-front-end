@@ -91,9 +91,9 @@ const Account: NextPage = () => {
       
         value: {
           authenticator: "0x01c9d8add6fbba9534ad3c623cc8ae3d18b0295a43c6feab83ea38614849db33",
-          base_asset: "0x06441c218ead27ee136579bad2c1705020e807f25d0b392e72b14e21b012b2f8",
+          base_asset: remoteTokenAddresses[selectedWithdrawToken],
           author: address, // author
-          quote_asset: "0x06441c218ead27ee136579bad2c1705020e807f25d0b392e72b14e21b012b233", // token address
+          quote_asset: remoteTokenAddresses[selectedWithdrawToken], // token address
           amount: withdrawAmount,
           price: 0,
           strategy: 3,
@@ -103,8 +103,12 @@ const Account: NextPage = () => {
         },
       })
 
-    const handleDropdownChange = (e: any) => {
+    const handleDepositDropdownChange = (e: any) => {
         setSelectedDepositToken(e.target.value);
+    }
+
+    const handleWithdrawDropdownChange = (e: any) => {
+        setSelectedWithdrawToken(e.target.value);
     }
 
   return (
@@ -126,7 +130,7 @@ const Account: NextPage = () => {
                     </div>
                     <div className="mt-10">Virtual Deposit From Ethereum to Starknet</div>
                     <div className="relative w-full lg:max-w-sm mt-3">
-                    <select onChange={(e) => handleDropdownChange(e)} className="bg-themePurple w-full p-2.5 text-black  rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
+                    <select onChange={(e) => handleDepositDropdownChange(e)} className="bg-themePurple w-full p-2.5 text-black  rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
                         <option selected disabled hidden>Select Token</option>
                         <option>WETH</option>
                         <option>DAI</option>
@@ -161,7 +165,7 @@ const Account: NextPage = () => {
                     <option>Arbitrum</option>
                     <option>Optimism</option>
                 </select>
-                <select className="mt-2 bg-themePurple w-full p-2.5 text-black  rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
+                <select onChange={(e) => handleWithdrawDropdownChange(e)} className="mt-2 bg-themePurple w-full p-2.5 text-black  rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
                     <option selected disabled hidden>Select Token</option>
                     <option>WETH</option>
                     <option>DAI</option>
