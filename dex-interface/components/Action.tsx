@@ -1,5 +1,6 @@
 import {useState, useEffect} from "react";
 import { useSignTypedData, useAccount } from 'wagmi';
+import axios from "axios";
 import {getRSVFromSig, SplitUint256} from "../utils/eip712";
 
 export default function Action() {
@@ -7,11 +8,27 @@ export default function Action() {
     const [ r, setR ] = useState<SplitUint256>();
     const [ s, setS ] = useState<SplitUint256>();
     const [ v, setV ] = useState("");
+    const [ message, setMessage ] = useState({});
 
     const [limitBuyPrice, setLimitBuyPrice] = useState(0);
     const [limitBuyAmount, setLimitBuyAmount] = useState(0);
     const [limitSellPrice, setLimitSellPrice] = useState(0);
     const [limitSellAmount, setLimitSellAmount] = useState(0);
+
+    const postRequest = () => {
+        axios.post("/api/eip712", {
+            r:r,
+            s:s,
+            v:v,
+            message: message
+        })
+        .then((result) => {
+            console.log("result", result);
+        })
+        .catch((err) => {
+            console.log("error", err);
+        })
+    }
 
     const placeBuyOrder = useSignTypedData({
         domain: {
@@ -86,19 +103,50 @@ export default function Action() {
       })
   
       useEffect(() => {
-        if (placeBuyOrder.data || placeSellOrder.data) {
-          const data = placeBuyOrder.data || placeSellOrder.data;
+        if (placeBuyOrder.data) {
           const { r, s, v } = getRSVFromSig(placeBuyOrder.data);
           setR(r);
           setS(s);
           setV(v);
+          setMessage({
+            authenticator: "0x01c9d8add6fbba9534ad3c623cc8ae3d18b0295a43c6feab83ea38614849db33",
+            base_asset: "0x06441c218ead27ee136579bad2c1705020e807f25d0b392e72b14e21b012b2f8",
+            author: address, // author
+            quote_asset: "0x06441c218ead27ee136579bad2c1705020e807f25d0b392e72b14e21b012b233", // token address
+            amount: limitBuyAmount,
+            price: limitBuyPrice,
+            strategy: 1,
+            chainId: 5,
+            orderId: 1,
+            salt: '0x1',
+          });
+        } else if (placeSellOrder.data) {
+          const { r, s, v } = getRSVFromSig(placeBuyOrder.data);
+          setR(r);
+          setS(s);
+          setV(v);
+          setMessage({
+            authenticator: "0x01c9d8add6fbba9534ad3c623cc8ae3d18b0295a43c6feab83ea38614849db33",
+            base_asset: "0x06441c218ead27ee136579bad2c1705020e807f25d0b392e72b14e21b012b2f8",
+            author: address, // author
+            quote_asset: "0x06441c218ead27ee136579bad2c1705020e807f25d0b392e72b14e21b012b233", // token address
+            amount: limitSellAmount,
+            price: limitSellPrice,
+            strategy: 2,
+            chainId: 5,
+            orderId: 1,
+            salt: '0x1',
+          });
         }
       }, [placeBuyOrder.data, placeSellOrder.data])
-  
-      console.log(placeBuyOrder);
+
+    useEffect(() => {
+        postRequest();
+    }, [message]);
 
     return (
         <div className="text-themeTextGrey flex flex-col w-full p-5">
+        <button onClick={() => postRequest()}>Test</button>
            <div className="flex flex-row">
             <div className="text-themeOrange">Limit</div>
             <div className="ml-3">Market</div>

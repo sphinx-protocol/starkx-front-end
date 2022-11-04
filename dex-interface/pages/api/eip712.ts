@@ -9,5 +9,10 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  res.status(200).json({ name: 'John Doe' })
+  console.log(req.body);
+  if (req.method === 'POST') {
+    res.status(200).json({ status: "Executed Transaction" })
+  } else {
+    console.log("Wrong request");
+  }
 }
