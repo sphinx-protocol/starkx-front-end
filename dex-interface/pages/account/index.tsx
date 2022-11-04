@@ -1,8 +1,9 @@
 import type { NextPage } from 'next'
 import {useState} from "react";
+import { useContractRead,useAccount } from 'wagmi'
+import ERC20Fake from "../../abi/ERC20Fake.json";
 
-
-const renderToken = (name : string, amount: number) => {
+const renderToken = (name : string, amount: any) => {
     const logos = {
 
     }
@@ -12,11 +13,32 @@ const renderToken = (name : string, amount: number) => {
             <img src={`/${name}.svg`} className="w-8"></img>
             <div className="ml-2">{name}</div>
         </div>
-        <div className="flex flex-row">10 {name === "ETHEREUM"? "ETH" : name}</div>
+        <div className="flex flex-row">{Number(amount) / 1e18} {name === "ETHEREUM"? "ETH" : name}</div>
     </div>)
 }
 
 const Account: NextPage = () => {
+    const { address = "", isConnected } = useAccount();
+    const WETHBalance = useContractRead({
+        address: "0x0e9A9Ac3Aaf264Af4F6716C2FC982CF58F3E591D",
+        abi: ERC20Fake.abi,
+        functionName: "balanceOf",
+        args: [address],
+    });
+    const USDCBalance = useContractRead({
+        address: "0x41FE9AC7a76D7a20794551a3E8Ba445c3C635106",
+        abi: ERC20Fake.abi,
+        functionName: "balanceOf",
+        args: [address],
+    });
+    const DAIBalance = useContractRead({
+        address: "0x45f2B2E318412d1f8102D1369B4C811421017a34",
+        abi: ERC20Fake.abi,
+        functionName: "balanceOf",
+        args: [address],
+    });
+    console.log(address);
+    console.log(WETHBalance.data);
    const [depositAmount, setDepositAmount] = useState(0);
    const [withdrawAmount, setWithdrawAmount] = useState(0);
 
@@ -33,9 +55,9 @@ const Account: NextPage = () => {
                         <option>Optimism</option>
                 </select>
                     <div className="mt-6">
-                        {renderToken("ETHEREUM", 10)}
-                        {renderToken("USDC", 10)}
-                        {renderToken("DAI", 10)}
+                        {renderToken("ETHEREUM", WETHBalance.data)}
+                        {renderToken("USDC", USDCBalance.data)}
+                        {renderToken("DAI", DAIBalance.data)}
                     </div>
                     <div className="mt-10">Virtual Deposit From Ethereum to Starknet</div>
                     <div className="relative w-full lg:max-w-sm mt-3">

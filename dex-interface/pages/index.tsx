@@ -12,7 +12,6 @@ const Home: NextPage = () => {
         </Head>
 
         <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-          {/* <EIP712 /> */}
           <div className="p-2 border border-black bg-themeBlue">
             <Link href="/markets" className="ml-5">
               Go to Markets
