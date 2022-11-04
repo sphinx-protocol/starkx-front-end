@@ -44,12 +44,12 @@ class SplitUint256 {
 }
 
 const EIP712: NextPage = () => {
-  const { address, isConnected } = useAccount()
+  const { address, isConnected } = useAccount();
   const [ r, setR ] = useState<SplitUint256>();
   const [ s, setS ] = useState<SplitUint256>();
   const [ v, setV ] = useState("");
 
-    const result = useSignTypedData({
+  const result = useSignTypedData({
       domain: {
         name: 'stark-x',
         version: '1',
@@ -74,14 +74,14 @@ const EIP712: NextPage = () => {
       value: {
         authenticator: "0x01c9d8add6fbba9534ad3c623cc8ae3d18b0295a43c6feab83ea38614849db33",
         base_asset: "0x06441c218ead27ee136579bad2c1705020e807f25d0b392e72b14e21b012b2f8",
-        author: author, // author
+        author: "0xa1E1247dE39fFCDbeBFb48700cd7BD72edfb7296", // author
         quote_asset: "0x06441c218ead27ee136579bad2c1705020e807f25d0b392e72b14e21b012b233", // token address
         amount: 1000,
         price: 200,
         strategy: 1,
         chainId: 5,
         orderId: 123456,
-        salt: salt.toHex(),
+        salt: '0x1',
       },
     })
 
