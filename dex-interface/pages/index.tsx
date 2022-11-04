@@ -1,10 +1,7 @@
 import type { NextPage } from 'next'
-import EIP712 from "../components/EIP712";
-import Profile from "../components/Profile";
-import Footer from "../components/Footer";
-
+import Link from "next/link";
+import { useRouter } from 'next/router'
 import Head from 'next/head'
-import Image from 'next/image'
 
 const Home: NextPage = () => {
   return (
@@ -15,7 +12,12 @@ const Home: NextPage = () => {
         </Head>
 
         <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-          <EIP712 />
+          {/* <EIP712 /> */}
+          <div className="p-2 border border-black bg-themeBlue">
+            <Link href="/markets" className="ml-5">
+              Go to Markets
+            </Link>
+          </div>
         </main>
 
       </div>
