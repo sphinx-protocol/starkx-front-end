@@ -1,8 +1,9 @@
 import type { NextPage } from 'next'
 import {useState} from "react";
-import { useContractRead, useContractWrite, useAccount } from 'wagmi'
+import { useContractRead, useContractWrite, useAccount, useSignTypedData } from 'wagmi'
 import ERC20Fake from "../../abi/ERC20Fake.json";
 import L1EthRemoteCore from "../../abi/L1EthRemoteCore.json";
+import {getRSVFromSig, SplitUint256} from "../../utils/eip712";
 import { tokenAddresses, contractAddresses, remoteTokenAddresses } from '../../utils/addresses';
 
 const renderToken = (name : string, amount: any) => {
@@ -25,6 +26,9 @@ const Account: NextPage = () => {
    const [ withdrawAmount, setWithdrawAmount] = useState(0);
    const [ selectedDepositToken = "USDC", setSelectedDepositToken] = useState("USDC");
    const [ selectedWithdrawToken = "USDC", setSelectedWithdrawToken] = useState("USDC");
+   const [ r, setR ] = useState<SplitUint256>();
+   const [ s, setS ] = useState<SplitUint256>();
+   const [ v, setV ] = useState("");
 
    const WETHBalance = useContractRead({
         address: tokenAddresses["WETH"],
@@ -62,6 +66,42 @@ const Account: NextPage = () => {
         functionName: "confirmRemoteWithdraw",
         args: [remoteTokenAddresses[selectedWithdrawToken], withdrawAmount],
     });
+
+    const startWithdraw = useSignTypedData({
+        domain: {
+          name: 'stark-x',
+          version: '1',
+          chainId: '5',
+        },
+      
+        types: {
+          Order: [
+            { name: 'authenticator', type: 'bytes32' },
+            { name: 'base_asset', type: 'bytes32' },
+            { name: 'author', type: 'address' },
+            { name: 'quote_asset', type: 'bytes32' },
+            { name: 'amount', type: 'uint256' },
+            { name: 'price', type: 'uint256' },
+            { name: 'strategy', type: 'uint256' },
+            { name: 'chainId', type: 'uint256' },
+            { name: 'orderId', type: 'uint256' },
+            { name: 'salt', type: 'uint256' },
+          ],
+        } as const, // <--- const assertion
+      
+        value: {
+          authenticator: "0x01c9d8add6fbba9534ad3c623cc8ae3d18b0295a43c6feab83ea38614849db33",
+          base_asset: "0x06441c218ead27ee136579bad2c1705020e807f25d0b392e72b14e21b012b2f8",
+          author: address, // author
+          quote_asset: "0x06441c218ead27ee136579bad2c1705020e807f25d0b392e72b14e21b012b233", // token address
+          amount: withdrawAmount,
+          price: 0,
+          strategy: 3,
+          chainId: 5,
+          orderId: 1,
+          salt: '0x1',
+        },
+      })
 
     const handleDropdownChange = (e: any) => {
         setSelectedDepositToken(e.target.value);
@@ -139,8 +179,8 @@ const Account: NextPage = () => {
                         />
                 <div>
                     <div className="mt-2">
-                        <button className="mt-2 p-2 w-36 bg-themeOrange text-black">Start Process</button>
-                        <button className="mt-2 p-2 w-36 bg-themeBlue text-black m-4">Finish Withdraw</button>
+                        <button className="mt-2 p-2 w-36 bg-themeOrange text-black" onClick={() => startWithdraw.signTypedData()}>Start Process</button>
+                        <button className="mt-2 p-2 w-36 bg-themeBlue text-black m-4" onClick={() => L1EthRemoteCoreWithdraw.write()}>Finish Withdraw</button>
                     </div>
                 </div>
             </div>
