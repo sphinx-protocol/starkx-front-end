@@ -15,6 +15,8 @@ export default function Action() {
     const [limitSellPrice, setLimitSellPrice] = useState(0);
     const [limitSellAmount, setLimitSellAmount] = useState(0);
 
+    const salt: SplitUint256 = SplitUint256.fromHex('0x2');
+
     const postRequest = () => {
         axios.post("/api/eip712", {
             r:r,
@@ -53,7 +55,7 @@ export default function Action() {
         } as const, // <--- const assertion
       
         value: {
-          authenticator: "0x01c9d8add6fbba9534ad3c623cc8ae3d18b0295a43c6feab83ea38614849db33",
+          authenticator: "0x065b3efc3dbd33b9be097c56b937cf91c6214a4e716ac67180700cdce70d8094",
           base_asset: "0x06441c218ead27ee136579bad2c1705020e807f25d0b392e72b14e21b012b2f8",
           author: address, // author
           quote_asset: "0x06441c218ead27ee136579bad2c1705020e807f25d0b392e72b14e21b012b233", // token address
@@ -62,7 +64,7 @@ export default function Action() {
           strategy: 1,
           chainId: 5,
           orderId: 1,
-          salt: '0x1',
+          salt: salt.toHex(),
         },
       })
 
@@ -89,7 +91,7 @@ export default function Action() {
         } as const, // <--- const assertion
       
         value: {
-          authenticator: "0x01c9d8add6fbba9534ad3c623cc8ae3d18b0295a43c6feab83ea38614849db33",
+          authenticator: "0x065b3efc3dbd33b9be097c56b937cf91c6214a4e716ac67180700cdce70d8094",
           base_asset: "0x06441c218ead27ee136579bad2c1705020e807f25d0b392e72b14e21b012b2f8",
           author: address, // author
           quote_asset: "0x06441c218ead27ee136579bad2c1705020e807f25d0b392e72b14e21b012b233", // token address
@@ -98,7 +100,7 @@ export default function Action() {
           strategy: 2,
           chainId: 5,
           orderId: 1,
-          salt: '0x1',
+          salt: salt.toHex(),
         },
       })
   
@@ -109,7 +111,7 @@ export default function Action() {
           setS(s);
           setV(v);
           setMessage({
-            authenticator: "0x01c9d8add6fbba9534ad3c623cc8ae3d18b0295a43c6feab83ea38614849db33",
+            authenticator: "0x065b3efc3dbd33b9be097c56b937cf91c6214a4e716ac67180700cdce70d8094",
             base_asset: "0x06441c218ead27ee136579bad2c1705020e807f25d0b392e72b14e21b012b2f8",
             author: address, // author
             quote_asset: "0x06441c218ead27ee136579bad2c1705020e807f25d0b392e72b14e21b012b233", // token address
@@ -118,15 +120,15 @@ export default function Action() {
             strategy: 1,
             chainId: 5,
             orderId: 1,
-            salt: '0x1',
+            salt: salt.toHex(),
           });
         } else if (placeSellOrder.data) {
-          const { r, s, v } = getRSVFromSig(placeBuyOrder.data);
+          const { r, s, v } = getRSVFromSig(placeSellOrder.data);
           setR(r);
           setS(s);
           setV(v);
           setMessage({
-            authenticator: "0x01c9d8add6fbba9534ad3c623cc8ae3d18b0295a43c6feab83ea38614849db33",
+            authenticator: "0x065b3efc3dbd33b9be097c56b937cf91c6214a4e716ac67180700cdce70d8094",
             base_asset: "0x06441c218ead27ee136579bad2c1705020e807f25d0b392e72b14e21b012b2f8",
             author: address, // author
             quote_asset: "0x06441c218ead27ee136579bad2c1705020e807f25d0b392e72b14e21b012b233", // token address
@@ -135,7 +137,7 @@ export default function Action() {
             strategy: 2,
             chainId: 5,
             orderId: 1,
-            salt: '0x1',
+            salt: salt.toHex(),
           });
         }
       }, [placeBuyOrder.data, placeSellOrder.data])
