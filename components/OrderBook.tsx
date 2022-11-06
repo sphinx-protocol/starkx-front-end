@@ -51,6 +51,8 @@ function OrderBook() {
             })
     }, [])
 
+    console.log("max", maxBucketAmount)
+
     const [scrollEffect, setScrollEffect] = useState(false)
 
     let askOrderBookDiv: any

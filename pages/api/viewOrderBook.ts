@@ -41,7 +41,7 @@ export default async function handler(
         })
 
         let buckets: Buckets = {}
-        let newMaxBucketAmount
+        let newMaxBucketAmount = 0;
 
         orders.map((order) => {
             const priceInt = Number(order.price) / 1e18
@@ -54,10 +54,14 @@ export default async function handler(
                     orders: [order],
                     total: priceInt * amountInt,
                 }
+                newMaxBucketAmount = Math.max(
+                    newMaxBucketAmount,
+                    buckets[bucket].amount
+                )
             } else {
                 buckets[bucket].amount += order.amount
                 newMaxBucketAmount = Math.max(
-                    maxBucketAmount,
+                    newMaxBucketAmount,
                     buckets[bucket].amount
                 )
                 buckets[bucket].orders.push(order)
@@ -109,7 +113,7 @@ export default async function handler(
         })
 
         let buckets: Buckets = {}
-        let newMaxBucketAmount
+        let newMaxBucketAmount = 0;
 
         orders.map((order) => {
             const priceInt = Number(order.price) / 1e18
@@ -122,10 +126,14 @@ export default async function handler(
                     orders: [order],
                     total: priceInt * amountInt,
                 }
+                newMaxBucketAmount = Math.max(
+                    newMaxBucketAmount,
+                    buckets[bucket].amount
+                )
             } else {
                 buckets[bucket].amount += order.amount
                 newMaxBucketAmount = Math.max(
-                    maxBucketAmount,
+                    newMaxBucketAmount,
                     buckets[bucket].amount
                 )
                 buckets[bucket].orders.push(order)
