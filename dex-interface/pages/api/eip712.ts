@@ -43,8 +43,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const starkKeyPair = ec.genKeyPair();
-  const starkKeyPub = ec.getStarkKey(starkKeyPair);
+  // const starkKeyPair = ec.genKeyPair();
+  // const starkKeyPub = ec.getStarkKey(starkKeyPair);
 
   // const compiledAccount = json.parse(
   //   fs.readFileSync("./Account.json").toString("ascii")
