@@ -6,6 +6,7 @@ import axios from 'axios'
 import { getRSVFromSig, SplitUint256 } from 'utils/eip712'
 import addresses from 'contracts/deployments'
 import { Provider } from 'starknet'
+import {strToFelt} from "utils/utils";
 
 const starknetProvider = new Provider({
     sequencer: {
@@ -43,7 +44,7 @@ export default function Action() {
             addresses.L2GatewayContract,
             entrypoint: 'get_balance',
             calldata: [
-                '2093101717867572091314490980361936991870830399016763450328630046935729101720', // user address
+                strToFelt(address), // user address
                 '1263837931181257672259478325023985688147725774594568537407549886638732743864', // token address
                 '1',
             ],
@@ -58,7 +59,7 @@ export default function Action() {
             addresses.L2GatewayContract,
             entrypoint: 'get_balance',
             calldata: [
-                '2093101717867572091314490980361936991870830399016763450328630046935729101720', // user address
+                strToFelt(address), // user address
                 '2576624706639232678191819241346448354159935221859968403121134970158245988074', // token address
                 '1',
             ],
