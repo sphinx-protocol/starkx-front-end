@@ -5,6 +5,16 @@ import { useSignTypedData, useAccount } from 'wagmi'
 import axios from 'axios'
 import { getRSVFromSig, SplitUint256 } from 'utils/eip712'
 import addresses from 'contracts/deployments'
+import { Provider } from 'starknet'
+
+const starknetProvider = new Provider({
+    sequencer: {
+        // network: 'goerli-alpha',
+        baseUrl: 'https://alpha4-2.starknet.io',
+        feederGatewayUrl: 'feeder_gateway',
+        gatewayUrl: 'gateway',
+    },
+})
 
 export default function Action() {
     const { address } = useAccount()
@@ -12,7 +22,8 @@ export default function Action() {
     const [s, setS] = useState<SplitUint256>()
     const [v, setV] = useState('')
     const [message, setMessage] = useState({})
-
+    const [dexUSDCBalance, setDexUSDCBalance] = useState(0)
+    const [dexWETHBalance, setDexWETHBalance] = useState(0)
     const [limitBuyPrice, setLimitBuyPrice] = useState(0)
     const [limitBuyAmount, setLimitBuyAmount] = useState(0)
     const [limitSellPrice, setLimitSellPrice] = useState(0)
@@ -20,6 +31,41 @@ export default function Action() {
     const [salt, setSalt] = useState(
         SplitUint256.fromHex('0x' + Math.floor(Math.random() * 50000))
     )
+
+    useEffect(() => {
+        fetchUSDCBalance();
+        fetchWETHBalance();
+    },[])
+
+    const fetchUSDCBalance = async () => {
+        const result = await starknetProvider.callContract({
+            contractAddress:
+            addresses.L2GatewayContract,
+            entrypoint: 'get_balance',
+            calldata: [
+                '2093101717867572091314490980361936991870830399016763450328630046935729101720', // user address
+                '1263837931181257672259478325023985688147725774594568537407549886638732743864', // token address
+                '1',
+            ],
+        })
+        console.log('result', result)
+        setDexUSDCBalance(Number(result.result[0]))
+    }
+
+    const fetchWETHBalance = async () => {
+        const result = await starknetProvider.callContract({
+            contractAddress:
+            addresses.L2GatewayContract,
+            entrypoint: 'get_balance',
+            calldata: [
+                '2093101717867572091314490980361936991870830399016763450328630046935729101720', // user address
+                '2576624706639232678191819241346448354159935221859968403121134970158245988074', // token address
+                '1',
+            ],
+        })
+        console.log('result', result)
+        setDexWETHBalance(Number(result.result[0]))
+    }
 
     const postRequest = () => {
         axios
@@ -168,7 +214,7 @@ export default function Action() {
                     <div className="w-full">
                         <div className="w-full justify-between flex flex-row">
                             <div>Balance</div>
-                            <div>123,212 USDC</div>
+                            <div>{dexUSDCBalance} USDC</div>
                         </div>
                     </div>
                     <div className="flex flex-row border border-themeBorderGrey items-center mb-2 mt-2">
@@ -210,7 +256,7 @@ export default function Action() {
                     <div className="w-full">
                         <div className="w-full justify-between flex flex-row">
                             <div>Balance</div>
-                            <div>35 ETH</div>
+                            <div>{dexWETHBalance} ETH</div>
                         </div>
                     </div>
                     <div className="mt-2 flex flex-row border border-themeBorderGrey items-center mb-2">
