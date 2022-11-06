@@ -51,22 +51,22 @@ function OrderBook() {
             })
     }, [])
 
-    const [scrollEffect, setScrollEffect] = useState(false)
+    // const [scrollEffect, setScrollEffect] = useState(false)
 
-    let askOrderBookDiv: any
+    // let askOrderBookDiv: any
 
-    if (typeof window !== 'undefined') {
-        askOrderBookDiv = document.getElementById('askOrderBook')
-    }
+    // if (typeof window !== 'undefined') {
+    //     askOrderBookDiv = document.getElementById('askOrderBook')
+    // }
 
-    useEffect(() => {
-        if (askOrderBookDiv && !scrollEffect) {
-            askOrderBookDiv.scrollTop = askOrderBookDiv.scrollHeight
-            if (askOrderBookDiv.scrollTop > 0) {
-                setScrollEffect(true)
-            }
-        }
-    }, [askOrderBook])
+    // useEffect(() => {
+    //     if (askOrderBookDiv && !scrollEffect) {
+    //         askOrderBookDiv.scrollTop = askOrderBookDiv.scrollHeight
+    //         if (askOrderBookDiv.scrollTop > 0) {
+    //             setScrollEffect(true)
+    //         }
+    //     }
+    // }, [askOrderBook])
 
     return (
         <div className="flex flex-col text-themeTextGrey">
