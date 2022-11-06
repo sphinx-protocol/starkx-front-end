@@ -33,6 +33,8 @@ export default async function handler(
             [baseAsset, quoteAsset, isBid]
         )
 
+        console.log("orderBookResponse", orderBookResponse);
+
         const orders = orderBookResponse.prices.map((price, i) => {
             return {
                 price: Number(price),

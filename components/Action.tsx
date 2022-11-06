@@ -220,7 +220,6 @@ export default function Action() {
                     </div>
                     <div className="flex flex-row border border-themeBorderGrey items-center mb-2 mt-2">
                         <input
-                            type="number"
                             name="buyPrice"
                             id="price"
                             value={limitBuyPrice / 1e18}
@@ -234,7 +233,6 @@ export default function Action() {
                     </div>
                     <div className="flex flex-row border border-themeBorderGrey items-center mb-2">
                         <input
-                            type="number"
                             name="buyAmount"
                             id="price"
                             value={limitBuyAmount / 1e18}
@@ -262,7 +260,6 @@ export default function Action() {
                     </div>
                     <div className="mt-2 flex flex-row border border-themeBorderGrey items-center mb-2">
                         <input
-                            type="number"
                             name="sellPrice"
                             id="price"
                             value={limitSellPrice / 1e18}
@@ -276,7 +273,6 @@ export default function Action() {
                     </div>
                     <div className="flex flex-row border border-themeBorderGrey items-center mb-2">
                         <input
-                            type="number"
                             name="sellAmount"
                             id="price"
                             value={limitSellAmount / 1e18}
