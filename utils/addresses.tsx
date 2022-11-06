@@ -5,13 +5,13 @@ const tokenAddresses = {
 };
 
 const remoteTokenAddresses = {
-    USDC: "0x02cb4e9247314a786d26868acef9a00dc06da10b3dd4d596336466fa2e0214b8",
-    WETH: "0x05b25162194a92ba6e871b5bae29b8af2889a63d19e72c99ccaa27a2e5abc6ea",
+    USDC: "0x02bf326f9c2224ea7a206da512238b314ba07f8b2e4e59e101daa83b8db19018",
+    WETH: "0x050fe7f38d5276a7a53f7d525f08bc93bd8c37c0db318fcb68f24e3d29283925",
     DAI: "0x02cb4e9247314a786d26868acef9a00dc06da10b3dd4d596336466fa2e0214b8",
 };
 
 const contractAddresses = {
-    L1EthRemoteCore: "0xF7D18E41638cC1790999Fc390B72c8b0A574602d"
+    L1EthRemoteCore: "0x549Af464FbC0b66D963A814C16655B3ea4c58C22"
 }
   
   export { tokenAddresses, contractAddresses, remoteTokenAddresses };

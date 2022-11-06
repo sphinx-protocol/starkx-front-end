@@ -19,6 +19,7 @@ import {
     contractAddresses,
     remoteTokenAddresses,
 } from 'utils/addresses'
+import {strToFelt} from "utils/utils";
 import addresses from 'contracts/deployments'
 
 const renderToken = (name: string, amount: any) => {
@@ -160,7 +161,7 @@ const Account: NextPage = () => {
             addresses.L2GatewayContract,
             entrypoint: 'get_balance',
             calldata: [
-                '2093101717867572091314490980361936991870830399016763450328630046935729101720', // user address
+                strToFelt(address), // user address
                 '1263837931181257672259478325023985688147725774594568537407549886638732743864', // token address
                 '1',
             ],
@@ -175,7 +176,7 @@ const Account: NextPage = () => {
             addresses.L2GatewayContract,
             entrypoint: 'get_balance',
             calldata: [
-                '2093101717867572091314490980361936991870830399016763450328630046935729101720', // user address
+                strToFelt(address), // user address
                 '123213', // token address
                 '1',
             ],
@@ -190,7 +191,7 @@ const Account: NextPage = () => {
             addresses.L2GatewayContract,
             entrypoint: 'get_balance',
             calldata: [
-                '2093101717867572091314490980361936991870830399016763450328630046935729101720', // user address
+                strToFelt(address), // user address
                 '2576624706639232678191819241346448354159935221859968403121134970158245988074', // token address
                 '1',
             ],
@@ -198,6 +199,8 @@ const Account: NextPage = () => {
         console.log('result', result)
         setDexWETHBalance(Number(result.result[0]))
     }
+
+    console.log("ex",strToFelt(address))
 
     const WETHBalance = useContractRead({
         address: tokenAddresses['WETH'],
@@ -230,7 +233,7 @@ const Account: NextPage = () => {
 
     const L1EthRemoteCoreDeposit = useContractWrite({
         mode: 'recklesslyUnprepared',
-        address: contractAddresses['L1EthRemoteCore'],
+        address: addresses.L1EthRemoteCoreContract,
         abi: L1EthRemoteCore.abi,
         functionName: 'remoteDepositAccount',
         args: [tokenAddresses[selectedDepositToken], depositAmount],
@@ -238,7 +241,7 @@ const Account: NextPage = () => {
 
     const L1EthRemoteCoreWithdraw = useContractWrite({
         mode: 'recklesslyUnprepared',
-        address: contractAddresses['L1EthRemoteCore'],
+        address: addresses.L1EthRemoteCoreContract,
         abi: L1EthRemoteCore.abi,
         functionName: 'confirmRemoteWithdraw',
         args: [remoteTokenAddresses[selectedWithdrawToken], withdrawAmount],
