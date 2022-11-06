@@ -1,0 +1,15 @@
+const addresses = {
+    L1EthRemoteCoreContract: '0xa4B1A83E567cC12f17518497D6EFC63dCbE9f0e5',
+    L1ETH: '0x0e9A9Ac3Aaf264Af4F6716C2FC982CF58F3E591D',
+    L1USDC: '0x41FE9AC7a76D7a20794551a3E8Ba445c3C635106',
+    L2GatewayContract:
+        '0x00c6faa0d037ce69a5a80bcbb8124305907bdf89e9a264c6309782b58028ed8b',
+    L2EthRemoteCoreContract:
+        '0x041955e3e8623f96a3cb6083030b50bfca85f01468d583bdcaf4499b0f418915',
+    L2EthRemoteEIP712Contract:
+        '0x07caa84a2ef999886f7c78b94af0332d6e7784bbe9f3a92765c5afe9132a8ca2',
+    L2ETH: '0x05b25162194a92ba6e871b5bae29b8af2889a63d19e72c99ccaa27a2e5abc6ea',
+    L2USDC: '0x02cb4e9247314a786d26868acef9a00dc06da10b3dd4d596336466fa2e0214b8',
+}
+
+export default addresses
