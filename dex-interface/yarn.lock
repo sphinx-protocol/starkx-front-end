@@ -652,6 +652,14 @@
     superstruct "^0.14.2"
     tweetnacl "^1.0.3"
 
+"@starknet-react/core@^0.14.6":
+  version "0.14.6"
+  resolved "https://registry.yarnpkg.com/@starknet-react/core/-/core-0.14.6.tgz#77c9e3e57babe197e05bc6aef11931697b1c29f3"
+  integrity sha512-3fXCyFxaNoBlXCv6hzRSw9y8r2O+jeAjVVxIRg7klgC22CTP/3bYq5+u9CeUxYwVtIl1SniOtCVTxuKsaY5BHA==
+  dependencies:
+    "@tanstack/react-query" "^4.3.4"
+    immutable "^4.0.0"
+
 "@swc/helpers@0.4.11":
   version "0.4.11"
   resolved "https://registry.yarnpkg.com/@swc/helpers/-/helpers-0.4.11.tgz#db23a376761b3d31c26502122f349a21b592c8de"
@@ -663,6 +671,11 @@
   version "4.13.0"
   resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-4.13.0.tgz#89153096d1fce42c0294fa1d1ae4b3e72aa5353b"
   integrity sha512-PzmLQcEgC4rl2OzkiPHYPC9O79DFcMGaKsOzDEP+U4PJ+tbkcEP+Z+FQDlfvX8mCwYC7UNH7hXrQ5EdkGlJjVg==
+
+"@tanstack/query-core@4.14.3":
+  version "4.14.3"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-4.14.3.tgz#9ab6763b61d5e491816483f3aeed771c1fbd657b"
+  integrity sha512-1OrxZk5jSKAjTIDgH/OHa6GfVpgGDVbCVf3KHQjXLFdutK4PSSXQIyX7I1HvBR3mYKyvFPo6yXKNG7QrkwUj9g==
 
 "@tanstack/query-persist-client-core@4.13.0":
   version "4.13.0"
@@ -689,6 +702,14 @@
   integrity sha512-dI/5hJ/pGQ74P5hxBLC9h6K0/Cap2T3k0ZjjjFLBCNnohDYgl7LNmMopzrRzBHk2mMjf2hgXHIzcKNG8GOZ5hg==
   dependencies:
     "@tanstack/query-core" "4.13.0"
+    use-sync-external-store "^1.2.0"
+
+"@tanstack/react-query@^4.3.4":
+  version "4.14.3"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-4.14.3.tgz#3bafea000480463de35721c742265730e2973550"
+  integrity sha512-PP7DEFsOMl/JaGQr1B4IeGN3lqHrC5EpG+AgG03OlVIOQMtXNhb0N66Nt1pdrladvzYsKD20L3O3550rBzgLtg==
+  dependencies:
+    "@tanstack/query-core" "4.14.3"
     use-sync-external-store "^1.2.0"
 
 "@types/bn.js@^4.11.3":
@@ -2018,6 +2039,11 @@ ieee754@^1.1.13, ieee754@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.2.1.tgz#8eb7a10a63fff25d15a57b001586d177d1b0d352"
   integrity sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==
+
+immutable@^4.0.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/immutable/-/immutable-4.1.0.tgz#f795787f0db780183307b9eb2091fcac1f6fafef"
+  integrity sha512-oNkuqVTA8jqG1Q6c+UglTOD1xhC1BtjKI7XkCXRkZHrN5m18/XsnUp8Q89GkQO/z+0WjonSvl0FLhDYftp46nQ==
 
 inherits@^2.0.1, inherits@^2.0.3, inherits@^2.0.4, inherits@~2.0.4:
   version "2.0.4"

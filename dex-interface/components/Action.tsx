@@ -148,7 +148,6 @@ export default function Action() {
 
     return (
         <div className="text-themeTextGrey flex flex-col w-full p-5">
-        <button onClick={() => postRequest()}>Test</button>
            <div className="flex flex-row">
             <div className="text-themeOrange">Limit</div>
             <div className="ml-3">Market</div>
