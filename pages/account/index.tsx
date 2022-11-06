@@ -9,6 +9,7 @@ import {
     useContractWrite,
     useAccount,
     useSignTypedData,
+    erc20ABI
 } from 'wagmi'
 import ERC20Fake from 'contracts/abi/ERC20Fake.json'
 import L1EthRemoteCore from 'contracts/abi/L1EthRemoteCore.json'
@@ -18,6 +19,7 @@ import {
     contractAddresses,
     remoteTokenAddresses,
 } from 'utils/addresses'
+import addresses from 'contracts/deployments'
 
 const renderToken = (name: string, amount: any) => {
     const logos = {}
@@ -218,6 +220,14 @@ const Account: NextPage = () => {
         args: [address],
     })
 
+    const approveToken = useContractWrite({
+        mode: 'recklesslyUnprepared',
+        address: tokenAddresses[selectedDepositToken],
+        abi: erc20ABI,
+        functionName: 'approve',
+        args: [addresses.L1EthRemoteCoreContract, depositAmount],
+    })
+
     const L1EthRemoteCoreDeposit = useContractWrite({
         mode: 'recklesslyUnprepared',
         address: contractAddresses['L1EthRemoteCore'],
@@ -289,7 +299,13 @@ const Account: NextPage = () => {
                             }
                         />
                         <button
-                            className="mt-3 p-2 w-36 bg-themeGreen text-black"
+                            className="mt-3 p-2 w-36 bg-themeBlue text-black"
+                            onClick={() => approveToken.write()}
+                        >
+                            Approve
+                        </button>
+                        <button
+                            className="mt-3 ml-4 p-2 w-36 bg-themeGreen text-black"
                             onClick={() => L1EthRemoteCoreDeposit.write()}
                         >
                             Deposit

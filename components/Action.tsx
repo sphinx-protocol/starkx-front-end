@@ -114,19 +114,6 @@ export default function Action() {
         },
     })
 
-    console.log("data", {
-        authenticator: addresses.L2EthRemoteEIP712Contract,
-        base_asset: addresses.L2USDC,
-        author: address, // author
-        quote_asset: addresses.L2ETH,
-        amount: limitSellAmount,
-        price: limitSellPrice,
-        strategy: 2,
-        chainId: 5,
-        orderId: 1,
-        salt: salt.toHex(),
-    })
-
     useEffect(() => {
         if (placeBuyOrder.data) {
             const { r, s, v } = getRSVFromSig(placeBuyOrder.data)
