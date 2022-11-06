@@ -8,7 +8,11 @@ export default function NavBar() {
 
     return (
         <div className="px-20 flex flex-row w-full justify-between items-center border border-black h-20">
-            <div className="text-white">Logo</div>
+            <div className="text-white">
+                <Link href="/">
+                    Logo    
+                </Link>       
+            </div>
             <div className="flex justify-between items-center">
                 <div className={router.pathname === "/markets" ? "ml-5 text-themeOrange font-bold" : "ml-5 text-white"}>
                     <Link href="/markets">

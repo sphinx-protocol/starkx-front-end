@@ -9,6 +9,7 @@ import {
     useContractWrite,
     useAccount,
     useSignTypedData,
+    erc20ABI
 } from 'wagmi'
 import ERC20Fake from 'contracts/abi/ERC20Fake.json'
 import L1EthRemoteCore from 'contracts/abi/L1EthRemoteCore.json'
@@ -18,6 +19,8 @@ import {
     contractAddresses,
     remoteTokenAddresses,
 } from 'utils/addresses'
+import {strToFelt} from "utils/utils";
+import addresses from 'contracts/deployments'
 
 const renderToken = (name: string, amount: any) => {
     const logos = {}
@@ -107,14 +110,14 @@ const Account: NextPage = () => {
 
         value: {
             authenticator:
-                '0x065b3efc3dbd33b9be097c56b937cf91c6214a4e716ac67180700cdce70d8094',
+            addresses.L2EthRemoteEIP712Contract,
             base_asset: remoteTokenAddresses[selectedWithdrawToken],
             author: address, // author
             quote_asset: remoteTokenAddresses[selectedWithdrawToken], // token address
             amount: withdrawAmount,
             price: 0,
-            strategy: 1,
-            chainId: 5,
+            strategy: 7,
+            chainId: 1,
             orderId: 1,
             salt: salt.toHex(),
         },
@@ -134,14 +137,14 @@ const Account: NextPage = () => {
             setV(v)
             setMessage({
                 authenticator:
-                    '0x065b3efc3dbd33b9be097c56b937cf91c6214a4e716ac67180700cdce70d8094',
+                addresses.L2EthRemoteEIP712Contract,
                 base_asset: remoteTokenAddresses[selectedWithdrawToken],
                 author: address, // author
                 quote_asset: remoteTokenAddresses[selectedWithdrawToken], // token address
                 amount: withdrawAmount,
                 price: 0,
-                strategy: 1,
-                chainId: 5,
+                strategy: 7,
+                chainId: 1,
                 orderId: 1,
                 salt: salt.toHex(),
             })
@@ -155,11 +158,11 @@ const Account: NextPage = () => {
     const fetchUSDCBalance = async () => {
         const result = await starknetProvider.callContract({
             contractAddress:
-                '0x0369651e6c1b3cc44095fd99fd9a7412f3460c31d459001df7070f710cd57ea4',
+            addresses.L2GatewayContract,
             entrypoint: 'get_balance',
             calldata: [
-                '2093101717867572091314490980361936991870830399016763450328630046935729101720', // user address
-                '1263837931181257672259478325023985688147725774594568537407549886638732743864', // token address
+                strToFelt(address), // user address
+                strToFelt(addresses.L2USDC), // token address
                 '1',
             ],
         })
@@ -170,10 +173,10 @@ const Account: NextPage = () => {
     const fetchDAIBalance = async () => {
         const result = await starknetProvider.callContract({
             contractAddress:
-                '0x0369651e6c1b3cc44095fd99fd9a7412f3460c31d459001df7070f710cd57ea4',
+            addresses.L2GatewayContract,
             entrypoint: 'get_balance',
             calldata: [
-                '2093101717867572091314490980361936991870830399016763450328630046935729101720', // user address
+                strToFelt(address), // user address
                 '123213', // token address
                 '1',
             ],
@@ -185,17 +188,19 @@ const Account: NextPage = () => {
     const fetchWETHBalance = async () => {
         const result = await starknetProvider.callContract({
             contractAddress:
-                '0x0369651e6c1b3cc44095fd99fd9a7412f3460c31d459001df7070f710cd57ea4',
+            addresses.L2GatewayContract,
             entrypoint: 'get_balance',
             calldata: [
-                '2093101717867572091314490980361936991870830399016763450328630046935729101720', // user address
-                '2576624706639232678191819241346448354159935221859968403121134970158245988074', // token address
+                strToFelt(address), // user address
+                strToFelt(addresses.L2ETH),, // token address
                 '1',
             ],
         })
         console.log('result', result)
         setDexWETHBalance(Number(result.result[0]))
     }
+
+    console.log("ex",strToFelt(address))
 
     const WETHBalance = useContractRead({
         address: tokenAddresses['WETH'],
@@ -218,20 +223,28 @@ const Account: NextPage = () => {
         args: [address],
     })
 
+    const approveToken = useContractWrite({
+        mode: 'recklesslyUnprepared',
+        address: tokenAddresses[selectedDepositToken],
+        abi: erc20ABI,
+        functionName: 'approve',
+        args: [addresses.L1EthRemoteCoreContract, depositAmount.toString()],
+    })
+
     const L1EthRemoteCoreDeposit = useContractWrite({
         mode: 'recklesslyUnprepared',
-        address: contractAddresses['L1EthRemoteCore'],
+        address: addresses.L1EthRemoteCoreContract,
         abi: L1EthRemoteCore.abi,
         functionName: 'remoteDepositAccount',
-        args: [tokenAddresses[selectedDepositToken], depositAmount],
+        args: [tokenAddresses[selectedDepositToken], depositAmount.toString()],
     })
 
     const L1EthRemoteCoreWithdraw = useContractWrite({
         mode: 'recklesslyUnprepared',
-        address: contractAddresses['L1EthRemoteCore'],
+        address: addresses.L1EthRemoteCoreContract,
         abi: L1EthRemoteCore.abi,
         functionName: 'confirmRemoteWithdraw',
-        args: [remoteTokenAddresses[selectedWithdrawToken], withdrawAmount],
+        args: [remoteTokenAddresses[selectedWithdrawToken], withdrawAmount.toString()],
     })
 
     const handleDepositDropdownChange = (e: any) => {
@@ -278,18 +291,24 @@ const Account: NextPage = () => {
                         </select>
                         <div className="mt-3">Enter Amount</div>
                         <input
-                            type="number"
+                            // type="number"
                             name="depositAmount"
                             id="price"
-                            value={depositAmount}
+                            value={depositAmount / 1e18}
                             className="mt-1 block w-full h-6 pl-12 pr-12 bg-themeDarkGrey border border-themeBorderGrey rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             // placeholder="0.00"
                             onChange={(event) =>
-                                setDepositAmount(Number(event.target.value))
+                                setDepositAmount(Number(event.target.value) * 1e18)
                             }
                         />
                         <button
-                            className="mt-3 p-2 w-36 bg-themeGreen text-black"
+                            className="mt-3 p-2 w-36 bg-themeBlue text-black"
+                            onClick={() => approveToken.write()}
+                        >
+                            Approve
+                        </button>
+                        <button
+                            className="mt-3 ml-4 p-2 w-36 bg-themeGreen text-black"
                             onClick={() => L1EthRemoteCoreDeposit.write()}
                         >
                             Deposit
@@ -306,7 +325,7 @@ const Account: NextPage = () => {
                         {renderToken('DAI', dexDAIBalance)}
                     </div>
                     <div className="mt-6">
-                        Virtual Deposit From Ethereum to Starknet
+                        Virtual Withdrawal From Starknet to Ethereum
                     </div>
                     <div className="relative w-full lg:max-w-sm">
                         <select className="mt-2 bg-themeGreen w-full p-2.5 text-black  rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
@@ -331,14 +350,14 @@ const Account: NextPage = () => {
                         </select>
                         <div className="mt-3">Enter Amount</div>
                         <input
-                            type="number"
+                            // type="number"
                             name="withdrawAmount"
                             id="price"
-                            value={withdrawAmount}
+                            value={withdrawAmount / 1e18}
                             className="mt-2 block w-full h-6 pl-12 pr-12 bg-themeDarkGrey border border-themeBorderGrey rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             // placeholder="0.00"
                             onChange={(event) =>
-                                setWithdrawAmount(Number(event.target.value))
+                                setWithdrawAmount(Number(event.target.value) * 1e18)
                             }
                         />
                         <div>

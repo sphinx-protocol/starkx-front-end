@@ -5,6 +5,17 @@ import { useSignTypedData, useAccount } from 'wagmi'
 import axios from 'axios'
 import { getRSVFromSig, SplitUint256 } from 'utils/eip712'
 import addresses from 'contracts/deployments'
+import { Provider } from 'starknet'
+import {strToFelt} from "utils/utils";
+
+const starknetProvider = new Provider({
+    sequencer: {
+        // network: 'goerli-alpha',
+        baseUrl: 'https://alpha4-2.starknet.io',
+        feederGatewayUrl: 'feeder_gateway',
+        gatewayUrl: 'gateway',
+    },
+})
 
 export default function Action() {
     const { address } = useAccount()
@@ -12,7 +23,8 @@ export default function Action() {
     const [s, setS] = useState<SplitUint256>()
     const [v, setV] = useState('')
     const [message, setMessage] = useState({})
-
+    const [dexUSDCBalance, setDexUSDCBalance] = useState(0)
+    const [dexWETHBalance, setDexWETHBalance] = useState(0)
     const [limitBuyPrice, setLimitBuyPrice] = useState(0)
     const [limitBuyAmount, setLimitBuyAmount] = useState(0)
     const [limitSellPrice, setLimitSellPrice] = useState(0)
@@ -20,6 +32,41 @@ export default function Action() {
     const [salt, setSalt] = useState(
         SplitUint256.fromHex('0x' + Math.floor(Math.random() * 50000))
     )
+
+    useEffect(() => {
+        fetchUSDCBalance();
+        fetchWETHBalance();
+    },[])
+
+    const fetchUSDCBalance = async () => {
+        const result = await starknetProvider.callContract({
+            contractAddress:
+            addresses.L2GatewayContract,
+            entrypoint: 'get_balance',
+            calldata: [
+                strToFelt(address), // user address
+                strToFelt(addresses.L2USDC), // token address
+                '1',
+            ],
+        })
+        console.log('result', result)
+        setDexUSDCBalance(Number(result.result[0])/1e18)
+    }
+
+    const fetchWETHBalance = async () => {
+        const result = await starknetProvider.callContract({
+            contractAddress:
+            addresses.L2GatewayContract,
+            entrypoint: 'get_balance',
+            calldata: [
+                strToFelt(address), // user address
+                strToFelt(addresses.L2ETH), // token address
+                '1',
+            ],
+        })
+        console.log('result', result)
+        setDexWETHBalance(Number(result.result[0])/1e18)
+    }
 
     const postRequest = () => {
         axios
@@ -68,9 +115,9 @@ export default function Action() {
             authenticator: addresses.L2EthRemoteEIP712Contract,
             base_asset: addresses.L2USDC,
             author: address, // author
-            quote_asset: addresses.ETH,
-            amount: limitBuyAmount,
-            price: limitBuyPrice,
+            quote_asset: addresses.L2ETH,
+            amount: limitBuyAmount.toString(),
+            price: limitBuyPrice.toString(),
             strategy: 1,
             chainId: 5,
             orderId: 1,
@@ -104,9 +151,9 @@ export default function Action() {
             authenticator: addresses.L2EthRemoteEIP712Contract,
             base_asset: addresses.L2USDC,
             author: address, // author
-            quote_asset: addresses.ETH,
-            amount: limitSellAmount,
-            price: limitSellPrice,
+            quote_asset: addresses.L2ETH,
+            amount: limitSellAmount.toString(),
+            price: limitSellPrice.toString(),
             strategy: 2,
             chainId: 5,
             orderId: 1,
@@ -124,9 +171,9 @@ export default function Action() {
                 authenticator: addresses.L2EthRemoteEIP712Contract,
                 base_asset: addresses.L2USDC,
                 author: address, // author
-                quote_asset: addresses.ETH,
-                amount: limitBuyAmount,
-                price: limitBuyPrice,
+                quote_asset: addresses.L2ETH,
+                amount: limitBuyAmount.toString(),
+                price: limitBuyPrice.toString(),
                 strategy: 1,
                 chainId: 5,
                 orderId: 1,
@@ -141,9 +188,9 @@ export default function Action() {
                 authenticator: addresses.L2EthRemoteEIP712Contract,
                 base_asset: addresses.L2USDC,
                 author: address, // author
-                quote_asset: addresses.ETH,
-                amount: limitSellAmount,
-                price: limitSellPrice,
+                quote_asset: addresses.L2ETH,
+                amount: limitSellAmount.toString(),
+                price: limitSellPrice.toString(),
                 strategy: 2,
                 chainId: 5,
                 orderId: 1,
@@ -168,33 +215,31 @@ export default function Action() {
                     <div className="w-full">
                         <div className="w-full justify-between flex flex-row">
                             <div>Balance</div>
-                            <div>123,212 USDC</div>
+                            <div>{dexUSDCBalance} USDC</div>
                         </div>
                     </div>
                     <div className="flex flex-row border border-themeBorderGrey items-center mb-2 mt-2">
                         <input
-                            type="number"
                             name="buyPrice"
                             id="price"
-                            value={limitBuyPrice}
+                            value={limitBuyPrice / 1e18}
                             className="block w-full h-6 pl-12 pr-12 bg-themeDarkGrey rounded-md focus:bg-themeDarkGrey focus:border-themeDarkGrey sm:text-sm"
                             placeholder="0.00"
                             onChange={(event) =>
-                                setLimitBuyPrice(Number(event.target.value))
+                                setLimitBuyPrice(Number(event.target.value) * 1e18)
                             }
                         />
                         <div className="mr-2">Price</div>
                     </div>
                     <div className="flex flex-row border border-themeBorderGrey items-center mb-2">
                         <input
-                            type="number"
                             name="buyAmount"
                             id="price"
-                            value={limitBuyAmount}
+                            value={limitBuyAmount / 1e18}
                             className="block w-full h-6 pl-12 pr-12 bg-themeDarkGrey  rounded-md focus:ring-indigo-500 focus:border-themeDarkGrey sm:text-sm"
                             placeholder="0.00"
                             onChange={(event) =>
-                                setLimitBuyAmount(Number(event.target.value))
+                                setLimitBuyAmount(Number(event.target.value) * 1e18)
                             }
                         />
                         <div className="mr-2">Amount</div>
@@ -210,33 +255,31 @@ export default function Action() {
                     <div className="w-full">
                         <div className="w-full justify-between flex flex-row">
                             <div>Balance</div>
-                            <div>35 ETH</div>
+                            <div>{dexWETHBalance} ETH</div>
                         </div>
                     </div>
                     <div className="mt-2 flex flex-row border border-themeBorderGrey items-center mb-2">
                         <input
-                            type="number"
                             name="sellPrice"
                             id="price"
-                            value={limitSellPrice}
+                            value={limitSellPrice / 1e18}
                             className="block w-full h-6 pl-12 pr-12 bg-themeDarkGrey border-themeBorderGrey rounded-md focus:ring-indigo-500 focus:border-themeDarkGrey sm:text-sm"
                             placeholder="0.00"
                             onChange={(event) =>
-                                setLimitSellPrice(Number(event.target.value))
+                                setLimitSellPrice(Number(event.target.value) * 1e18)
                             }
                         />
                         <div className="mr-2">Price</div>
                     </div>
                     <div className="flex flex-row border border-themeBorderGrey items-center mb-2">
                         <input
-                            type="number"
                             name="sellAmount"
                             id="price"
-                            value={limitSellAmount}
+                            value={limitSellAmount / 1e18}
                             className="block w-full h-6 pl-12 pr-12 bg-themeDarkGrey border-themeBorderGrey rounded-md focus:bg-themeDarkGrey focus:border-themeDarkGrey sm:text-sm"
                             placeholder="0.00"
                             onChange={(event) =>
-                                setLimitSellAmount(Number(event.target.value))
+                                setLimitSellAmount(Number(event.target.value)  * 1e18)
                             }
                         />
                         <div className="mr-2">Amount</div>

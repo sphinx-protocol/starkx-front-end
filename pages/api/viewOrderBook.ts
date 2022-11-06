@@ -12,7 +12,7 @@ export default async function handler(
     res: NextApiResponse<Data>
 ) {
     if (req.method === 'POST') {
-        const { baseAsset, quoteAsset, isBid, maxBucketAmount } = req.body
+        const { baseAsset, quoteAsset, isBid } = req.body
 
         const provider = new Provider({
             sequencer: {
@@ -33,6 +33,8 @@ export default async function handler(
             [baseAsset, quoteAsset, isBid]
         )
 
+        console.log("orderBookResponse", orderBookResponse);
+
         const orders = orderBookResponse.prices.map((price, i) => {
             return {
                 price: Number(price),
@@ -41,7 +43,7 @@ export default async function handler(
         })
 
         let buckets: Buckets = {}
-        let newMaxBucketAmount
+        let newMaxBucketAmount = 0;
 
         orders.map((order) => {
             const priceInt = Number(order.price) / 1e18
@@ -54,10 +56,14 @@ export default async function handler(
                     orders: [order],
                     total: priceInt * amountInt,
                 }
+                newMaxBucketAmount = Math.max(
+                    newMaxBucketAmount,
+                    buckets[bucket].amount
+                )
             } else {
                 buckets[bucket].amount += order.amount
                 newMaxBucketAmount = Math.max(
-                    maxBucketAmount,
+                    newMaxBucketAmount,
                     buckets[bucket].amount
                 )
                 buckets[bucket].orders.push(order)
@@ -80,7 +86,6 @@ export default async function handler(
         const quoteAsset =
             '0x05b25162194a92ba6e871b5bae29b8af2889a63d19e72c99ccaa27a2e5abc6ea'
         const isBid = 1
-        const maxBucketAmount = 0
 
         const provider = new Provider({
             sequencer: {
@@ -109,7 +114,7 @@ export default async function handler(
         })
 
         let buckets: Buckets = {}
-        let newMaxBucketAmount
+        let newMaxBucketAmount = 0;
 
         orders.map((order) => {
             const priceInt = Number(order.price) / 1e18
@@ -122,10 +127,14 @@ export default async function handler(
                     orders: [order],
                     total: priceInt * amountInt,
                 }
+                newMaxBucketAmount = Math.max(
+                    newMaxBucketAmount,
+                    buckets[bucket].amount
+                )
             } else {
                 buckets[bucket].amount += order.amount
                 newMaxBucketAmount = Math.max(
-                    maxBucketAmount,
+                    newMaxBucketAmount,
                     buckets[bucket].amount
                 )
                 buckets[bucket].orders.push(order)
