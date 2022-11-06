@@ -3,7 +3,7 @@ const addresses = {
     L1ETH: '0x0e9A9Ac3Aaf264Af4F6716C2FC982CF58F3E591D',
     L1USDC: '0x41FE9AC7a76D7a20794551a3E8Ba445c3C635106',
     L2GatewayContract:
-        '0x03015a22e6340956f6be95abe0d15a3932446ea2a0b5e856747cad4f288aa585',
+        '0x06102cba1f3ac68eed3e58a4c4a82200443641965f8f04e60d63bcbf7e97766b',
     L2EthRemoteCoreContract:
         '0x01a42bff021f9f61c14c3f98966aad24114c0a74284ed20dece71127634cd3b6',
     L2EthRemoteEIP712Contract:
