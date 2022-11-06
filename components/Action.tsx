@@ -68,7 +68,7 @@ export default function Action() {
             authenticator: addresses.L2EthRemoteEIP712Contract,
             base_asset: addresses.L2USDC,
             author: address, // author
-            quote_asset: addresses.ETH,
+            quote_asset: addresses.L2ETH,
             amount: limitBuyAmount,
             price: limitBuyPrice,
             strategy: 1,
@@ -104,7 +104,7 @@ export default function Action() {
             authenticator: addresses.L2EthRemoteEIP712Contract,
             base_asset: addresses.L2USDC,
             author: address, // author
-            quote_asset: addresses.ETH,
+            quote_asset: addresses.L2ETH,
             amount: limitSellAmount,
             price: limitSellPrice,
             strategy: 2,
@@ -112,6 +112,19 @@ export default function Action() {
             orderId: 1,
             salt: salt.toHex(),
         },
+    })
+
+    console.log("data", {
+        authenticator: addresses.L2EthRemoteEIP712Contract,
+        base_asset: addresses.L2USDC,
+        author: address, // author
+        quote_asset: addresses.L2ETH,
+        amount: limitSellAmount,
+        price: limitSellPrice,
+        strategy: 2,
+        chainId: 5,
+        orderId: 1,
+        salt: salt.toHex(),
     })
 
     useEffect(() => {
@@ -124,7 +137,7 @@ export default function Action() {
                 authenticator: addresses.L2EthRemoteEIP712Contract,
                 base_asset: addresses.L2USDC,
                 author: address, // author
-                quote_asset: addresses.ETH,
+                quote_asset: addresses.L2ETH,
                 amount: limitBuyAmount,
                 price: limitBuyPrice,
                 strategy: 1,
@@ -141,7 +154,7 @@ export default function Action() {
                 authenticator: addresses.L2EthRemoteEIP712Contract,
                 base_asset: addresses.L2USDC,
                 author: address, // author
-                quote_asset: addresses.ETH,
+                quote_asset: addresses.L2ETH,
                 amount: limitSellAmount,
                 price: limitSellPrice,
                 strategy: 2,

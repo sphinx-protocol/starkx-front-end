@@ -51,22 +51,22 @@ function OrderBook() {
             })
     }, [])
 
-    // const [scrollEffect, setScrollEffect] = useState(false)
+    const [scrollEffect, setScrollEffect] = useState(false)
 
-    // let askOrderBookDiv: any
+    let askOrderBookDiv: any
 
-    // if (typeof window !== 'undefined') {
-    //     askOrderBookDiv = document.getElementById('askOrderBook')
-    // }
+    if (typeof window !== 'undefined') {
+        askOrderBookDiv = document.getElementById('askOrderBook')
+    }
 
-    // useEffect(() => {
-    //     if (askOrderBookDiv && !scrollEffect) {
-    //         askOrderBookDiv.scrollTop = askOrderBookDiv.scrollHeight
-    //         if (askOrderBookDiv.scrollTop > 0) {
-    //             setScrollEffect(true)
-    //         }
-    //     }
-    // }, [askOrderBook])
+    useEffect(() => {
+        if (askOrderBookDiv && !scrollEffect) {
+            askOrderBookDiv.scrollTop = askOrderBookDiv.scrollHeight
+            if (askOrderBookDiv.scrollTop > 0) {
+                setScrollEffect(true)
+            }
+        }
+    }, [askOrderBook])
 
     return (
         <div className="flex flex-col text-themeTextGrey">
@@ -87,8 +87,8 @@ function OrderBook() {
                             className="overflow-y-scroll h-60 "
                             id="askOrderBook"
                         >
-                            {sortedBidBuckets &&
-                                sortedBidBuckets.map((bucket, id) => {
+                            {sortedAskBuckets &&
+                                sortedAskBuckets.map((bucket, id) => {
                                     return (
                                         <div
                                             className="relative flex flex-col w-full my-0.5 cursor-pointer border border-themeBorderGrey hover:border-blue-500"
@@ -151,8 +151,8 @@ function OrderBook() {
                     </div>
                     <div className="flex flex-col w-full">
                         <div className="overflow-y-scroll h-60">
-                            {sortedAskBuckets &&
-                                sortedAskBuckets.map((bucket, id) => {
+                            {sortedBidBuckets &&
+                                sortedBidBuckets.map((bucket, id) => {
                                     return (
                                         <div
                                             key={id.toString()}
