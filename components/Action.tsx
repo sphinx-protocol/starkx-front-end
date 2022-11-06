@@ -45,7 +45,7 @@ export default function Action() {
             entrypoint: 'get_balance',
             calldata: [
                 strToFelt(address), // user address
-                '1263837931181257672259478325023985688147725774594568537407549886638732743864', // token address
+                strToFelt(addresses.L2USDC), // token address
                 '1',
             ],
         })
@@ -60,7 +60,7 @@ export default function Action() {
             entrypoint: 'get_balance',
             calldata: [
                 strToFelt(address), // user address
-                '2576624706639232678191819241346448354159935221859968403121134970158245988074', // token address
+                strToFelt(addresses.L2ETH), // token address
                 '1',
             ],
         })
