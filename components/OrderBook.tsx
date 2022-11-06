@@ -87,15 +87,16 @@ function OrderBook() {
                             className="overflow-y-scroll h-60 "
                             id="askOrderBook"
                         >
-                            {sortedAskBuckets &&
-                                sortedAskBuckets.map((bucket, id) => {
+                                                        {sortedBidBuckets &&
+                                sortedBidBuckets.map((bucket, id) => {
+                                    console.log(bucket);
                                     return (
                                         <div
+                                            key={id.toString()}
                                             className="relative flex flex-col w-full my-0.5 cursor-pointer border border-themeBorderGrey hover:border-blue-500"
-                                            key={id}
                                         >
                                             <div
-                                                className="absolute h-full bg-themeRed"
+                                                className={`h-full bg-themeGreen absolute`}
                                                 style={{
                                                     width:
                                                         (bucket.amount /
@@ -151,16 +152,15 @@ function OrderBook() {
                     </div>
                     <div className="flex flex-col w-full">
                         <div className="overflow-y-scroll h-60">
-                            {sortedBidBuckets &&
-                                sortedBidBuckets.map((bucket, id) => {
-                                    console.log(bucket);
+                        {sortedAskBuckets &&
+                                sortedAskBuckets.map((bucket, id) => {
                                     return (
                                         <div
-                                            key={id.toString()}
                                             className="relative flex flex-col w-full my-0.5 cursor-pointer border border-themeBorderGrey hover:border-blue-500"
+                                            key={id}
                                         >
                                             <div
-                                                className={`h-full bg-themeGreen absolute`}
+                                                className="absolute h-full bg-themeRed"
                                                 style={{
                                                     width:
                                                         (bucket.amount /
