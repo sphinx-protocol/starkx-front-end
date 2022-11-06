@@ -50,7 +50,7 @@ export default function Action() {
             ],
         })
         console.log('result', result)
-        setDexUSDCBalance(Number(result.result[0]))
+        setDexUSDCBalance(Number(result.result[0])/1e18)
     }
 
     const fetchWETHBalance = async () => {
@@ -65,7 +65,7 @@ export default function Action() {
             ],
         })
         console.log('result', result)
-        setDexWETHBalance(Number(result.result[0]))
+        setDexWETHBalance(Number(result.result[0])/1e18)
     }
 
     const postRequest = () => {

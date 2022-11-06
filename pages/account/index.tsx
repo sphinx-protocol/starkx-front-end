@@ -298,7 +298,7 @@ const Account: NextPage = () => {
                             className="mt-1 block w-full h-6 pl-12 pr-12 bg-themeDarkGrey border border-themeBorderGrey rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             // placeholder="0.00"
                             onChange={(event) =>
-                                setDepositAmount(Number(event.target.value))
+                                setDepositAmount(Number(event.target.value) * 1e18)
                             }
                         />
                         <button
@@ -357,7 +357,7 @@ const Account: NextPage = () => {
                             className="mt-2 block w-full h-6 pl-12 pr-12 bg-themeDarkGrey border border-themeBorderGrey rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             // placeholder="0.00"
                             onChange={(event) =>
-                                setWithdrawAmount(Number(event.target.value))
+                                setWithdrawAmount(Number(event.target.value) * 1e18)
                             }
                         />
                         <div>
