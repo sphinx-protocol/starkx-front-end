@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import type { NextPage } from 'next'
 import {useState, useEffect} from "react";
 import axios from "axios";

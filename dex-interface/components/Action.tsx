@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import {useState, useEffect} from "react";
 import { useSignTypedData, useAccount } from 'wagmi';
 import axios from "axios";
