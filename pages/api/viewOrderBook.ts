@@ -12,7 +12,7 @@ export default async function handler(
     res: NextApiResponse<Data>
 ) {
     if (req.method === 'POST') {
-        const { baseAsset, quoteAsset, isBid, maxBucketAmount } = req.body
+        const { baseAsset, quoteAsset, isBid } = req.body
 
         const provider = new Provider({
             sequencer: {
@@ -84,7 +84,6 @@ export default async function handler(
         const quoteAsset =
             '0x05b25162194a92ba6e871b5bae29b8af2889a63d19e72c99ccaa27a2e5abc6ea'
         const isBid = 1
-        const maxBucketAmount = 0
 
         const provider = new Provider({
             sequencer: {

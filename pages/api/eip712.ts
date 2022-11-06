@@ -16,6 +16,7 @@ import {
 } from 'starknet'
 const fs = require('fs')
 import { SplitUint256 } from 'utils/eip712'
+import addresses from 'contracts/deployments'
 import L2EthRemoteEIP712 from 'contracts/abi/L2EthRemoteEIP712.json'
 
 type Data = {
@@ -78,7 +79,7 @@ export default async function handler(
 
     const contract = new Contract(
         L2EthRemoteEIP712.abi,
-        '0x065b3efc3dbd33b9be097c56b937cf91c6214a4e716ac67180700cdce70d8094',
+        addresses.L2EthRemoteEIP712Contract,
         account
     )
     const newSalt: SplitUint256 = SplitUint256.fromHex(salt)
