@@ -14,8 +14,7 @@ export default function Action() {
     const [limitBuyAmount, setLimitBuyAmount] = useState(0);
     const [limitSellPrice, setLimitSellPrice] = useState(0);
     const [limitSellAmount, setLimitSellAmount] = useState(0);
-
-    const salt: SplitUint256 = SplitUint256.fromHex('0x2');
+    const [ salt, setSalt ] = useState(SplitUint256.fromHex('0x' + Math.floor(Math.random() * 50000)));
 
     const postRequest = () => {
         axios.post("/api/eip712", {
@@ -26,6 +25,7 @@ export default function Action() {
         })
         .then((result) => {
             console.log("result", result);
+            setSalt(SplitUint256.fromHex('0x' + Math.floor(Math.random() * 50000)));
         })
         .catch((err) => {
             console.log("error", err);

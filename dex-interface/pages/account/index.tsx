@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
-import {useState} from "react";
+import {useState, useEffect} from "react";
+import axios from "axios";
 import {Provider} from "starknet";
 import { useContractRead, useContractWrite, useAccount, useSignTypedData } from 'wagmi'
 import ERC20Fake from "../../abi/ERC20Fake.json";
@@ -21,6 +22,22 @@ const renderToken = (name : string, amount: any) => {
 }
 
 const Account: NextPage = () => {
+
+   const { address, isConnected } = useAccount();
+   const [ depositAmount, setDepositAmount] = useState(0);
+   const [ withdrawAmount, setWithdrawAmount] = useState(0);
+   const [ dexUSDCBalance, setDexUSDCBalance] = useState(0);
+   const [ dexDAIBalance, setDexDAIBalance] = useState(0);
+   const [ dexWETHBalance, setDexWETHBalance] = useState(0);
+   const [ selectedDepositToken = "USDC", setSelectedDepositToken] = useState("USDC");
+   const [ selectedWithdrawToken = "USDC", setSelectedWithdrawToken] = useState("USDC");
+   const [ r, setR ] = useState<SplitUint256>();
+   const [ s, setS ] = useState<SplitUint256>();
+   const [ v, setV ] = useState("");
+   const [ message, setMessage ] = useState({});
+   const [ salt, setSalt ] = useState(SplitUint256.fromHex('0x' + Math.floor(Math.random() * 50000)));
+
+
     const starknetProvider = new Provider({
         sequencer: {
             // network: 'goerli-alpha',
@@ -29,6 +46,89 @@ const Account: NextPage = () => {
             gatewayUrl: 'gateway',
         },
     });
+
+    const postRequest = () => {
+        axios.post("/api/eip712", {
+            r:r,
+            s:s,
+            v:v,
+            message: message
+        })
+        .then((result) => {
+            console.log("result", result);
+            setSalt(SplitUint256.fromHex('0x' + Math.floor(Math.random() * 50000)));
+        })
+        .catch((err) => {
+            console.log("error", err);
+        })
+    }
+
+    const startWithdraw = useSignTypedData({
+        domain: {
+          name: 'stark-x',
+          version: '1',
+          chainId: '5',
+        },
+      
+        types: {
+          Order: [
+            { name: 'authenticator', type: 'bytes32' },
+            { name: 'base_asset', type: 'bytes32' },
+            { name: 'author', type: 'address' },
+            { name: 'quote_asset', type: 'bytes32' },
+            { name: 'amount', type: 'uint256' },
+            { name: 'price', type: 'uint256' },
+            { name: 'strategy', type: 'uint256' },
+            { name: 'chainId', type: 'uint256' },
+            { name: 'orderId', type: 'uint256' },
+            { name: 'salt', type: 'uint256' },
+          ],
+        } as const, // <--- const assertion
+      
+        value: {
+          authenticator: "0x065b3efc3dbd33b9be097c56b937cf91c6214a4e716ac67180700cdce70d8094",
+          base_asset: remoteTokenAddresses[selectedWithdrawToken],
+          author: address, // author
+          quote_asset: remoteTokenAddresses[selectedWithdrawToken], // token address
+          amount: withdrawAmount,
+          price: 0,
+          strategy: 1,
+          chainId: 5,
+          orderId: 1,
+          salt: salt.toHex(),
+        },
+      })
+
+      useEffect(() => {
+        fetchUSDCBalance();
+        fetchDAIBalance();
+        fetchWETHBalance();
+      },[])
+
+    useEffect(() => {
+        if (startWithdraw.data) {
+          const { r, s, v } = getRSVFromSig(startWithdraw.data);
+          setR(r);
+          setS(s);
+          setV(v);
+          setMessage({
+            authenticator: "0x065b3efc3dbd33b9be097c56b937cf91c6214a4e716ac67180700cdce70d8094",
+            base_asset: remoteTokenAddresses[selectedWithdrawToken],
+            author: address, // author
+            quote_asset: remoteTokenAddresses[selectedWithdrawToken], // token address
+            amount: withdrawAmount,
+            price: 0,
+            strategy: 1,
+            chainId: 5,
+            orderId: 1,
+            salt: salt.toHex(),
+          });
+        } 
+      }, [startWithdraw.data])
+
+    useEffect(() => {
+        postRequest();
+    }, [message]);
 
    const fetchUSDCBalance = async() => {
     const result = await starknetProvider.callContract({
@@ -68,22 +168,6 @@ const Account: NextPage = () => {
     console.log("result", result);
     setDexWETHBalance(Number(result.result[0]));
    }
-    
-   fetchUSDCBalance();
-   fetchDAIBalance();
-   fetchWETHBalance();
-
-   const { address, isConnected } = useAccount();
-   const [ depositAmount, setDepositAmount] = useState(0);
-   const [ withdrawAmount, setWithdrawAmount] = useState(0);
-   const [ dexUSDCBalance, setDexUSDCBalance] = useState(0);
-   const [ dexDAIBalance, setDexDAIBalance] = useState(0);
-   const [ dexWETHBalance, setDexWETHBalance] = useState(0);
-   const [ selectedDepositToken = "USDC", setSelectedDepositToken] = useState("USDC");
-   const [ selectedWithdrawToken = "USDC", setSelectedWithdrawToken] = useState("USDC");
-   const [ r, setR ] = useState<SplitUint256>();
-   const [ s, setS ] = useState<SplitUint256>();
-   const [ v, setV ] = useState("");
 
    const WETHBalance = useContractRead({
         address: tokenAddresses["WETH"],
@@ -121,42 +205,6 @@ const Account: NextPage = () => {
         functionName: "confirmRemoteWithdraw",
         args: [remoteTokenAddresses[selectedWithdrawToken], withdrawAmount],
     });
-
-    const startWithdraw = useSignTypedData({
-        domain: {
-          name: 'stark-x',
-          version: '1',
-          chainId: '5',
-        },
-      
-        types: {
-          Order: [
-            { name: 'authenticator', type: 'bytes32' },
-            { name: 'base_asset', type: 'bytes32' },
-            { name: 'author', type: 'address' },
-            { name: 'quote_asset', type: 'bytes32' },
-            { name: 'amount', type: 'uint256' },
-            { name: 'price', type: 'uint256' },
-            { name: 'strategy', type: 'uint256' },
-            { name: 'chainId', type: 'uint256' },
-            { name: 'orderId', type: 'uint256' },
-            { name: 'salt', type: 'uint256' },
-          ],
-        } as const, // <--- const assertion
-      
-        value: {
-          authenticator: "0x01c9d8add6fbba9534ad3c623cc8ae3d18b0295a43c6feab83ea38614849db33",
-          base_asset: remoteTokenAddresses[selectedWithdrawToken],
-          author: address, // author
-          quote_asset: remoteTokenAddresses[selectedWithdrawToken], // token address
-          amount: withdrawAmount,
-          price: 0,
-          strategy: 3,
-          chainId: 5,
-          orderId: 1,
-          salt: '0x1',
-        },
-      })
 
     const handleDepositDropdownChange = (e: any) => {
         setSelectedDepositToken(e.target.value);
