@@ -1,32 +1,16 @@
-export interface AskOrderBook {
+export interface OrderBook {
     price: number
     amount: number
 }
 
-export interface BidOrderBook {
+export interface Buckets {
+    [bucket: number]: BucketDetails
+}
+
+export interface BucketDetails {
     price: number
     amount: number
-}
-
-export interface BidBuckets {
-    [bucket: number]: BidBucketDetails
-}
-
-export interface BidBucketDetails {
-    price: number
-    amount: number
-    orders: BidOrderBook[]
-    total: number
-}
-
-export interface AskBuckets {
-    [bucket: number]: AskBucketDetails
-}
-
-export interface AskBucketDetails {
-    price: number
-    amount: number
-    orders: AskOrderBook[]
+    orders: OrderBook[]
     total: number
 }
 
@@ -34,8 +18,3 @@ export interface OrderBookProps {
     baseAsset: string
     quoteAsset: string
 }
-
-export type OrderBook = {
-    price: number
-    amount: number
-}[]

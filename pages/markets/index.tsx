@@ -15,10 +15,7 @@ const Markets: NextPage = () => {
                     </div>
                     <div className="flex flex-col w-9/12 h-full ml-5 border border-black">
                         <div className="border border-black w-full bg-themeDarkGrey">
-                            <OrderBook
-                                baseAsset={addresses.L2USDC}
-                                quoteAsset={addresses.L2ETH}
-                            />
+                            <OrderBook />
                         </div>
                         <div className="mt-5 flex flex-row border border-black bg-themeDarkGrey">
                             <Action />

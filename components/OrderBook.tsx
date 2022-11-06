@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react'
 import {
-    BidBuckets,
-    AskBuckets,
-    BidBucketDetails,
-    AskBucketDetails,
+    Buckets,
+    BucketDetails,
     OrderBookProps,
     OrderBook,
 } from 'interfaces/interfaces'
@@ -13,8 +11,11 @@ import addresses from 'contracts/deployments'
 import axios from 'axios'
 
 function OrderBook() {
-    const [bidOrderBook, setBidOrderBook] = useState<OrderBook>()
-    const [askOrderBook, setAskOrderBook] = useState<OrderBook>()
+    const [bidOrderBook, setBidOrderBook] = useState<OrderBook[]>()
+    const [askOrderBook, setAskOrderBook] = useState<OrderBook[]>()
+    const [sortedBidBuckets, setSortedBidBuckets] = useState<BucketDetails[]>()
+    const [sortedAskBuckets, setSortedAskBuckets] = useState<BucketDetails[]>()
+    const [maxBucketAmount, setMaxBucketAmount] = useState<number>(0)
 
     useEffect(() => {
         axios
@@ -24,10 +25,13 @@ function OrderBook() {
                 isBid: 1,
             })
             .then((result) => {
-                setBidOrderBook(result.data.data)
+                const { orders, sortedBuckets, maxBucketAmount } = result.data
+                setBidOrderBook(orders)
+                setSortedBidBuckets(sortedBuckets)
+                setMaxBucketAmount(maxBucketAmount)
             })
             .catch((err) => {
-                console.log('error', err)
+                console.error('error', err)
             })
 
         axios
@@ -37,19 +41,17 @@ function OrderBook() {
                 isBid: 0,
             })
             .then((result) => {
-                setAskOrderBook(result.data.data)
+                const { orders, sortedBuckets, maxBucketAmount } = result.data
+                setAskOrderBook(orders)
+                setSortedAskBuckets(sortedBuckets)
+                setMaxBucketAmount(maxBucketAmount)
             })
             .catch((err) => {
-                console.log('error', err)
+                console.error('error', err)
             })
     }, [])
 
     const [scrollEffect, setScrollEffect] = useState(false)
-
-    let BidBuckets: BidBuckets = {}
-    let AskBuckets: AskBuckets = {}
-
-    let maxBucketAmount = 0
 
     let askOrderBookDiv: any
 
@@ -65,55 +67,6 @@ function OrderBook() {
             }
         }
     }, [askOrderBook])
-
-    bidOrderBook.forEach((order) => {
-        const bucket: number = Math.floor(Number(order.price) / 1e18)
-        if (BidBuckets[bucket] === undefined) {
-            BidBuckets[bucket] = {
-                price: bucket,
-                amount: order.amount,
-                orders: [order],
-                total: Number(order.price) * order.amount,
-            }
-        } else if (BidBuckets[bucket]) {
-            BidBuckets[bucket].amount += order.amount
-            maxBucketAmount = Math.max(
-                maxBucketAmount,
-                BidBuckets[bucket].amount
-            )
-            BidBuckets[bucket].orders.push(order)
-            BidBuckets[bucket].total += Number(order.price) * order.amount
-        }
-    })
-    const sortedBidBuckets: BidBucketDetails[] = Object.values(BidBuckets).sort(
-        (a, b) => b.price - a.price
-    )
-    console.log('sortedBidBuckets', sortedBidBuckets)
-
-    askOrderBook.forEach((order) => {
-        const bucket: number = Math.floor(Number(order.price) / 1e18)
-        if (AskBuckets[bucket] === undefined) {
-            AskBuckets[bucket] = {
-                price: bucket,
-                amount: order.amount,
-                orders: [order],
-                total: Number(order.price) * order.amount,
-            }
-        } else if (AskBuckets[bucket]) {
-            AskBuckets[bucket].amount += order.amount
-            maxBucketAmount = Math.max(
-                maxBucketAmount,
-                AskBuckets[bucket].amount
-            )
-            AskBuckets[bucket].orders.push(order)
-            AskBuckets[bucket].total += Number(order.price) * order.amount
-        }
-    })
-
-    const sortedAskBuckets: AskBucketDetails[] = Object.values(AskBuckets).sort(
-        (a, b) => a.price - b.price
-    )
-    console.log(sortedAskBuckets)
 
     return (
         <div className="flex flex-col text-themeTextGrey">
@@ -179,7 +132,7 @@ function OrderBook() {
                     <div>Market Pair: ETH/USDC</div>
                     <div className="text-white text-lg">
                         Price:
-                        {sortedBidBuckets.length
+                        {sortedBidBuckets && sortedBidBuckets.length
                             ? ' ' +
                               Number(sortedBidBuckets[0].price).toFixed(2) +
                               ' USDC/ETH'
