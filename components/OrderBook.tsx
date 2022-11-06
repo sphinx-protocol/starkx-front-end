@@ -118,7 +118,7 @@ function OrderBook() {
                                                 </div>
                                                 <div className="text-white">
                                                     {formatNumber(
-                                                        bucket.total / 1e18
+                                                        bucket.total
                                                     )}
                                                 </div>
                                             </div>
@@ -153,6 +153,7 @@ function OrderBook() {
                         <div className="overflow-y-scroll h-60">
                             {sortedBidBuckets &&
                                 sortedBidBuckets.map((bucket, id) => {
+                                    console.log(bucket);
                                     return (
                                         <div
                                             key={id.toString()}
@@ -182,7 +183,7 @@ function OrderBook() {
                                                 </div>
                                                 <div className="text-white">
                                                     {formatNumber(
-                                                        bucket.total / 1e18
+                                                        bucket.total
                                                     )}
                                                 </div>
                                             </div>

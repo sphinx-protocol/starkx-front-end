@@ -228,7 +228,7 @@ const Account: NextPage = () => {
         address: tokenAddresses[selectedDepositToken],
         abi: erc20ABI,
         functionName: 'approve',
-        args: [addresses.L1EthRemoteCoreContract, depositAmount],
+        args: [addresses.L1EthRemoteCoreContract, depositAmount.toString()],
     })
 
     const L1EthRemoteCoreDeposit = useContractWrite({
@@ -236,7 +236,7 @@ const Account: NextPage = () => {
         address: addresses.L1EthRemoteCoreContract,
         abi: L1EthRemoteCore.abi,
         functionName: 'remoteDepositAccount',
-        args: [tokenAddresses[selectedDepositToken], depositAmount],
+        args: [tokenAddresses[selectedDepositToken], depositAmount.toString()],
     })
 
     const L1EthRemoteCoreWithdraw = useContractWrite({
@@ -244,7 +244,7 @@ const Account: NextPage = () => {
         address: addresses.L1EthRemoteCoreContract,
         abi: L1EthRemoteCore.abi,
         functionName: 'confirmRemoteWithdraw',
-        args: [remoteTokenAddresses[selectedWithdrawToken], withdrawAmount],
+        args: [remoteTokenAddresses[selectedWithdrawToken], withdrawAmount.toString()],
     })
 
     const handleDepositDropdownChange = (e: any) => {
@@ -294,7 +294,7 @@ const Account: NextPage = () => {
                             // type="number"
                             name="depositAmount"
                             id="price"
-                            value={depositAmount}
+                            value={depositAmount / 1e18}
                             className="mt-1 block w-full h-6 pl-12 pr-12 bg-themeDarkGrey border border-themeBorderGrey rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             // placeholder="0.00"
                             onChange={(event) =>
@@ -325,7 +325,7 @@ const Account: NextPage = () => {
                         {renderToken('DAI', dexDAIBalance)}
                     </div>
                     <div className="mt-6">
-                        Virtual Deposit From Ethereum to Starknet
+                        Virtual Withdrawal From Starknet to Ethereum
                     </div>
                     <div className="relative w-full lg:max-w-sm">
                         <select className="mt-2 bg-themeGreen w-full p-2.5 text-black  rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600">
@@ -353,7 +353,7 @@ const Account: NextPage = () => {
                             // type="number"
                             name="withdrawAmount"
                             id="price"
-                            value={withdrawAmount}
+                            value={withdrawAmount / 1e18}
                             className="mt-2 block w-full h-6 pl-12 pr-12 bg-themeDarkGrey border border-themeBorderGrey rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             // placeholder="0.00"
                             onChange={(event) =>

@@ -116,8 +116,8 @@ export default function Action() {
             base_asset: addresses.L2USDC,
             author: address, // author
             quote_asset: addresses.L2ETH,
-            amount: limitBuyAmount,
-            price: limitBuyPrice,
+            amount: limitBuyAmount.toString(),
+            price: limitBuyPrice.toString(),
             strategy: 1,
             chainId: 5,
             orderId: 1,
@@ -152,8 +152,8 @@ export default function Action() {
             base_asset: addresses.L2USDC,
             author: address, // author
             quote_asset: addresses.L2ETH,
-            amount: limitSellAmount,
-            price: limitSellPrice,
+            amount: limitSellAmount.toString(),
+            price: limitSellPrice.toString(),
             strategy: 2,
             chainId: 5,
             orderId: 1,
@@ -172,8 +172,8 @@ export default function Action() {
                 base_asset: addresses.L2USDC,
                 author: address, // author
                 quote_asset: addresses.L2ETH,
-                amount: limitBuyAmount,
-                price: limitBuyPrice,
+                amount: limitBuyAmount.toString(),
+                price: limitBuyPrice.toString(),
                 strategy: 1,
                 chainId: 5,
                 orderId: 1,
@@ -189,8 +189,8 @@ export default function Action() {
                 base_asset: addresses.L2USDC,
                 author: address, // author
                 quote_asset: addresses.L2ETH,
-                amount: limitSellAmount,
-                price: limitSellPrice,
+                amount: limitSellAmount.toString(),
+                price: limitSellPrice.toString(),
                 strategy: 2,
                 chainId: 5,
                 orderId: 1,
@@ -223,11 +223,11 @@ export default function Action() {
                             type="number"
                             name="buyPrice"
                             id="price"
-                            value={limitBuyPrice}
+                            value={limitBuyPrice / 1e18}
                             className="block w-full h-6 pl-12 pr-12 bg-themeDarkGrey rounded-md focus:bg-themeDarkGrey focus:border-themeDarkGrey sm:text-sm"
                             placeholder="0.00"
                             onChange={(event) =>
-                                setLimitBuyPrice(Number(event.target.value))
+                                setLimitBuyPrice(Number(event.target.value) * 1e18)
                             }
                         />
                         <div className="mr-2">Price</div>
@@ -237,11 +237,11 @@ export default function Action() {
                             type="number"
                             name="buyAmount"
                             id="price"
-                            value={limitBuyAmount}
+                            value={limitBuyAmount / 1e18}
                             className="block w-full h-6 pl-12 pr-12 bg-themeDarkGrey  rounded-md focus:ring-indigo-500 focus:border-themeDarkGrey sm:text-sm"
                             placeholder="0.00"
                             onChange={(event) =>
-                                setLimitBuyAmount(Number(event.target.value))
+                                setLimitBuyAmount(Number(event.target.value) * 1e18)
                             }
                         />
                         <div className="mr-2">Amount</div>
@@ -265,11 +265,11 @@ export default function Action() {
                             type="number"
                             name="sellPrice"
                             id="price"
-                            value={limitSellPrice}
+                            value={limitSellPrice / 1e18}
                             className="block w-full h-6 pl-12 pr-12 bg-themeDarkGrey border-themeBorderGrey rounded-md focus:ring-indigo-500 focus:border-themeDarkGrey sm:text-sm"
                             placeholder="0.00"
                             onChange={(event) =>
-                                setLimitSellPrice(Number(event.target.value))
+                                setLimitSellPrice(Number(event.target.value) * 1e18)
                             }
                         />
                         <div className="mr-2">Price</div>
@@ -279,11 +279,11 @@ export default function Action() {
                             type="number"
                             name="sellAmount"
                             id="price"
-                            value={limitSellAmount}
+                            value={limitSellAmount / 1e18}
                             className="block w-full h-6 pl-12 pr-12 bg-themeDarkGrey border-themeBorderGrey rounded-md focus:bg-themeDarkGrey focus:border-themeDarkGrey sm:text-sm"
                             placeholder="0.00"
                             onChange={(event) =>
-                                setLimitSellAmount(Number(event.target.value))
+                                setLimitSellAmount(Number(event.target.value)  * 1e18)
                             }
                         />
                         <div className="mr-2">Amount</div>
