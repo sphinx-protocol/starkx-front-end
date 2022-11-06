@@ -116,8 +116,8 @@ const Account: NextPage = () => {
             quote_asset: remoteTokenAddresses[selectedWithdrawToken], // token address
             amount: withdrawAmount,
             price: 0,
-            strategy: 1,
-            chainId: 5,
+            strategy: 7,
+            chainId: 1,
             orderId: 1,
             salt: salt.toHex(),
         },
@@ -143,8 +143,8 @@ const Account: NextPage = () => {
                 quote_asset: remoteTokenAddresses[selectedWithdrawToken], // token address
                 amount: withdrawAmount,
                 price: 0,
-                strategy: 1,
-                chainId: 5,
+                strategy: 7,
+                chainId: 1,
                 orderId: 1,
                 salt: salt.toHex(),
             })
@@ -291,7 +291,7 @@ const Account: NextPage = () => {
                         </select>
                         <div className="mt-3">Enter Amount</div>
                         <input
-                            type="number"
+                            // type="number"
                             name="depositAmount"
                             id="price"
                             value={depositAmount}
@@ -350,7 +350,7 @@ const Account: NextPage = () => {
                         </select>
                         <div className="mt-3">Enter Amount</div>
                         <input
-                            type="number"
+                            // type="number"
                             name="withdrawAmount"
                             id="price"
                             value={withdrawAmount}
