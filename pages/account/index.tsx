@@ -114,7 +114,7 @@ const Account: NextPage = () => {
             base_asset: remoteTokenAddresses[selectedWithdrawToken],
             author: address, // author
             quote_asset: remoteTokenAddresses[selectedWithdrawToken], // token address
-            amount: withdrawAmount,
+            amount: withdrawAmount.toString(),
             price: 0,
             strategy: 7,
             chainId: 1,
@@ -141,7 +141,7 @@ const Account: NextPage = () => {
                 base_asset: remoteTokenAddresses[selectedWithdrawToken],
                 author: address, // author
                 quote_asset: remoteTokenAddresses[selectedWithdrawToken], // token address
-                amount: withdrawAmount,
+                amount: withdrawAmount.toString(),
                 price: 0,
                 strategy: 7,
                 chainId: 1,
