@@ -1,11 +1,5 @@
-## To get started
+# starkx-front-end
 
-You will need a Metamask wallet installed in your browser (no need for Starknet wallet).
+This repo contains the frontend application for Stark X. 
 
-```bash
-yarn install
-```
-
-```bash
-yarn dev
-```
+Please see [here](https://github.com/stark-dex) for a description of the project.
